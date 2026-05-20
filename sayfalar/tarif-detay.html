@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarif Detayı | Bindaş Fındık</title>
+    <title data-i18n="recipe_detail_site_title">Tarif Detayı | Bindaş Fındık</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -18,6 +18,11 @@
                 </a>
             </div>
             <div class="header-icons">
+                <!-- Dil Değiştirme Butonları (Eklendi) -->
+                <div class="lang-switcher" style="display: inline-block; margin-right: 15px;">
+                    <button id="btn-tr" style="background:none; border:none; cursor:pointer; font-weight:bold;">TR</button> | 
+                    <button id="btn-en" style="background:none; border:none; cursor:pointer; color:#777;">EN</button>
+                </div>
                 <a href="giris-yap.html" title="Üye Ol/Giriş Yap"><i class="fa-regular fa-user"></i></a>
                 <a href="favoriler.html" title="Favoriler"><i class="fa-regular fa-heart"></i></a>
                 <a href="sepetim.html"><i class="fa-solid fa-bag-shopping"></i></a>
@@ -25,10 +30,10 @@
         </div>
         <nav class="main-nav" id="mainNav">
             <ul>
-                <li><a href="urunler.html">Ürünler</a></li>
-                <li><a href="tarifler.html" style="color: #e67e22;">Tarifler</a></li>
-                <li><a href="hakkimizda.html">Hakkımızda</a></li>
-                <li><a href="yardim-destek.html">Yardım & Destek</a></li>
+                <li><a href="urunler.html" data-i18n="nav_products">Ürünler</a></li>
+                <li><a href="tarifler.html" style="color: #e67e22;" data-i18n="nav_recipes">Tarifler</a></li>
+                <li><a href="hakkimizda.html" data-i18n="nav_about">Hakkımızda</a></li>
+                <li><a href="yardim-destek.html" data-i18n="nav_support">Yardım & Destek</a></li>
             </ul>
         </nav>
     </header>
@@ -38,7 +43,7 @@
         <div id="recipe-container"></div>
 
         <hr style="border: 0; border-top: 1px solid #eaeaea; margin-top: 50px; margin-bottom: 30px;">
-        <h3 style="text-align: center; margin-bottom: 20px; color: #2c3e50;">Bu Tarifte Kullanılan Ürünleri Hemen Alın</h3>
+        <h3 data-i18n="related_products_title" style="text-align: center; margin-bottom: 20px; color: #2c3e50;">Bu Tarifte Kullanılan Ürünleri Hemen Alın</h3>
         
         <div id="related-products-grid" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; max-width: 600px; margin: 0 auto;">
         </div>
@@ -51,12 +56,21 @@
         </div>
     </footer>
 
+    <!-- Dil Sözlüğünü JavaScript Kodlarından Önce Alabilmek İçin getActiveLang Fonksiyonu -->
     <script>
+        function getPageLang() {
+            return localStorage.getItem("preferredLanguage") || (navigator.language.startsWith("en") ? "en" : "tr");
+        }
+        const currentPageLang = getPageLang();
+
+        // 1. İKİ DİLLİ TARİF VERİTABANI
         const tarifVeritabani = {
             "kurabiye": {
-                baslik: "Fındıklı Kurabiye",
-                bilgi: "Kolay • 25dk",
-                malzemeler: [
+                baslik_tr: "Fındıklı Kurabiye",
+                baslik_en: "Hazelnut Cookies",
+                bilgi_tr: "Kolay • 25dk",
+                bilgi_en: "Easy • 25 min",
+                malzemeler_tr: [
                     "125 gr oda sıcaklığında tereyağı",
                     "Yarım çay bardağı sıvı yağ",
                     "1 adet yumurta sarısı",
@@ -65,22 +79,40 @@
                     "1 paket vanilya ve kabartma tozu",
                     "Aldığı kadar un (yaklaşık 2.5 su bardağı)"
                 ],
-                hazirlanisi: [
-                    "Tereyağı, sıvı yağ, yumurta sarısı ve pudra şekerini derin bir kapta güzelce karıştırın.",
+                malzemeler_en: [
+                    "125 g butter at room temperature",
+                    "Half a tea glass of vegetable oil",
+                    "1 egg yolk",
+                    "1 cup of powdered sugar",
+                    "1 cup of ground hazelnut kernels",
+                    "1 packet of vanilla sugar & baking powder",
+                    "Flour as needed (approx. 2.5 cups)"
+                ],
+                hazirlanisi_tr: [
+                    "Tereyağı, sıvı yağ, yumurta sarısı og pudra şekerini derin bir kapta güzelce karıştırın.",
                     "Un, kabartma tozu ve vanilyayı eleyerek ekleyip yumuşak bir hamur yoğurun.",
                     "Çekilmiş fındık içini katıp hamuru toparlayın.",
                     "Ceviz büyüklüğünde parçalar koparıp yuvarlayın, önce yumurta akına sonra fındığa bulayarak tepsiye dizin.",
                     "Önceden ısıtılmış 180 derece fırında 15-20 dakika pişirin."
                 ],
+                hazirlanisi_en: [
+                    "Mix butter, vegetable oil, egg yolk, and powdered sugar well in a deep bowl.",
+                    "Sift and add flour, baking powder, and vanilla sugar, then knead into a soft dough.",
+                    "Add the ground hazelnuts and bring the dough together.",
+                    "Roll into walnut-sized balls, dip first in egg white, then coat with hazelnut pieces, and place on a tray.",
+                    "Bake in a preheated oven at 180°C for 15-20 minutes."
+                ],
                 onerilenUrunler: [
-                    { ad: "İç Fındık", aciklama: "500 gr", fiyat: 325.00, img: "../images/products/ic-findik-500.png" },
-                    { ad: "Fındık Ezmesi", aciklama: "350 gr", fiyat: 250.00, img: "../images/products/findik-ezmesi-350.png" }
+                    { ad_tr: "İç Fındık", ad_en: "Raw Hazelnut Kernels", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat: 325.00, img: "../images/products/ic-findik-500.png" },
+                    { ad_tr: "Fındık Ezmesi", ad_en: "Hazelnut Paste", aciklama_tr: "350 gr", aciklama_en: "350 g", fiyat: 250.00, img: "../images/products/findik-ezmesi-350.png" }
                 ]
             },
             "brownie": {
-                baslik: "Fındıklı Brownie",
-                bilgi: "Orta • 40dk",
-                malzemeler: [
+                baslik_tr: "Fındıklı Brownie",
+                baslik_en: "Hazelnut Brownie",
+                bilgi_tr: "Orta • 40dk",
+                bilgi_en: "Medium • 40 min",
+                malzemeler_tr: [
                     "200 gr bitter çikolata",
                     "150 gr tereyağı",
                     "3 adet oda sıcaklığında yumurta",
@@ -88,7 +120,15 @@
                     "1 su bardağı un",
                     "1 su bardağı iri kıyılmış kavrulmuş fındık"
                 ],
-                hazirlanisi: [
+                malzemeler_en: [
+                    "200 g dark chocolate",
+                    "150 g butter",
+                    "3 eggs at room temperature",
+                    "1 cup of granulated sugar",
+                    "1 cup of flour",
+                    "1 cup of coarsely chopped roasted hazelnuts"
+                ],
+                hazirlanisi_tr: [
                     "Tereyağı ve bitter çikolatayı benmari usulü eritip ılımaya bırakın.",
                     "Ayrı bir kapta yumurta ve şekeri beyazlaşana kadar mikserle çırpın.",
                     "Eriyen çikolatalı karışımı yumurtalı karışıma yavaşça ekleyerek alttan üste doğru karıştırın.",
@@ -96,14 +136,24 @@
                     "Son olarak iri kıyılmış fındıkları ekleyin ve fırın kabına dökün.",
                     "160 derece önceden ısıtılmış fırında 25-30 dakika pişirin. İçi hafif nemli kalmalıdır."
                 ],
+                hazirlanisi_en: [
+                    "Melt the butter and dark chocolate using a double boiler method and leave to cool down to warm.",
+                    "In a separate bowl, whisk eggs and sugar with a mixer until pale and frothy.",
+                    "Slowly add the melted chocolate mixture to the egg mixture, folding gently from bottom to top.",
+                    "Sift and add the flour into the mixture.",
+                    "Finally, fold in the coarsely chopped hazelnuts and pour into a baking dish.",
+                    "Bake in a preheated oven at 160°C for 25-30 minutes. The interior should remain slightly moist."
+                ],
                 onerilenUrunler: [
-                    { ad: "Kavrulmuş Fındık", aciklama: "500 gr", fiyat: 375.00, img: "../images/products/kavrulmus-findik-500.png" }
+                    { ad_tr: "Kavrulmuş Fındık", ad_en: "Roasted Hazelnuts", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat: 375.00, img: "../images/products/kavrulmus-findik-500.png" }
                 ]
             },
             "sutlutatli": {
-                baslik: "Fındık Ezmeli Sütlü Tatlı",
-                bilgi: "Kolay • 30dk",
-                malzemeler: [
+                baslik_tr: "Fındık Ezmeli Sütlü Tatlı",
+                baslik_en: "Hazelnut Paste Milk Pudding",
+                bilgi_tr: "Kolay • 30dk",
+                bilgi_en: "Easy • 30 min",
+                malzemeler_tr: [
                     "1 litre süt",
                     "1 su bardağı toz şeker",
                     "3 yemek kaşığı un",
@@ -111,7 +161,15 @@
                     "3 yemek kaşığı fındık ezmesi",
                     "1 yemek kaşığı tereyağı"
                 ],
-                hazirlanisi: [
+                malzemeler_en: [
+                    "1 liter of milk",
+                    "1 cup of granulated sugar",
+                    "3 tablespoons of flour",
+                    "2 tablespoons of wheat starch",
+                    "3 tablespoons of hazelnut paste",
+                    "1 tablespoon of butter"
+                ],
+                hazirlanisi_tr: [
                     "Süt, şeker, un ve nişastayı derin bir tencereye alın.",
                     "Çırpma teliyle sürekli karıştırarak koyulaşıp göz göz olana kadar pişirin.",
                     "Kaynayan muhallebinin altını kapatın, içine tereyağı ve fındık ezmesini ekleyin.",
@@ -119,35 +177,61 @@
                     "Tatlıyı kaselere paylaştırın, buzdolabında soğumaya bırakın.",
                     "Servis yapmadan önce üzerini bolca fındık kırığı ile süsleyin."
                 ],
+                hazirlanisi_en: [
+                    "Put milk, sugar, flour, and starch into a deep saucepan.",
+                    "Cook by stirring constantly with a whisk until it thickens and bubbles up.",
+                    "Turn off the heat, then add butter and hazelnut paste into the pudding.",
+                    "Whisk with a mixer until perfectly smooth.",
+                    "Divide the dessert into bowls and leave to cool in the refrigerator.",
+                    "Decorate generously with crushed hazelnuts before serving."
+                ],
                 onerilenUrunler: [
-                    { ad: "Fındık Ezmesi", aciklama: "700 gr", fiyat: 400.00, img: "../images/products/findik-ezmesi-700.png" }
+                    { ad_tr: "Fındık Ezmesi", ad_en: "Hazelnut Paste", aciklama_tr: "700 gr", aciklama_en: "700 g", fiyat: 400.00, img: "../images/products/findik-ezmesi-700.png" }
                 ]
             },
             "baklava": {
-                baslik: "Fındıklı Baklava Sarma",
-                bilgi: "Orta • 60dk",
-                malzemeler: [
+                baslik_tr: "Fındıklı Baklava Sarma",
+                baslik_en: "Hazelnut Baklava Roll",
+                bilgi_tr: "Orta • 60dk",
+                bilgi_en: "Medium • 60 min",
+                malzemeler_tr: [
                     "1 paket baklavalık hazır yufka",
                     "250 gr eritilmiş saf tereyağı",
                     "2 su bardağı ince çekilmiş fındık",
                     "Şerbeti için: 3 su bardağı şeker, 3 su bardağı su, 1 dilim limon"
                 ],
-                hazirlanisi: [
-                    "Şerbeti hazırlamak için su ve şekeri kaynatın, limon dilimini ekleyip altını kapatın ve soğumaya bırakın.",
+                malzemeler_en: [
+                    "1 pack of ready-to-use baklava filo pastry",
+                    "250 g melted pure butter",
+                    "2 cups of finely ground hazelnuts",
+                    "For syrup: 3 cups of sugar, 3 cups of water, 1 slice of lemon"
+                ],
+                hazirlanisi_tr: [
+                    "Şerbeti hazırlamak için su ve şekeri kaynatın, limon dilimini ekleyip altını kapatın... Soğumaya bırakın.",
                     "Baklavalık yufkadan bir yaprak alıp tezgaha serin, üzerine fırçayla hafifçe tereyağı sürün.",
                     "İkinci yufkayı üzerine serin ve tekrar yağlayın.",
                     "Yufkanın her yerine bolca çekilmiş fındık serpin ve rulo sarın.",
                     "Oklavanın iki ucundan ortaya doğru yufkayı büzüştürün ve oklavayı çıkararak fırın tepsisine dizin.",
                     "Kalan tereyağını üzerlerine gezdirin ve 180 derece fırında kızarana kadar pişirin. Fırından çıkan sıcak tatlıya soğuk şerbeti dökün."
                 ],
+                hazirlanisi_en: [
+                    "Boil water and sugar to prepare syrup, add lemon slice, turn off the heat, and leave to cool.",
+                    "Lay a sheet of baklava pastry on the counter, brush lightly with melted butter.",
+                    "Lay the second sheet on top and butter it again.",
+                    "Sprinkle plenty of ground hazelnuts all over the pastry and roll it tightly.",
+                    "Wrinkle the pastry from both ends towards the center of the rolling pin, slide it off, and place on a baking tray.",
+                    "Pour the remaining butter over them and bake at 180°C until golden. Pour cold syrup over the hot pastry out of the oven."
+                ],
                 onerilenUrunler: [
-                    { ad: "İç Fındık", aciklama: "500 gr", fiyat: 325.00, img: "../images/products/ic-findik-500.png" }
+                    { ad_tr: "İç Fındık", ad_en: "Raw Hazelnut Kernels", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat: 325.00, img: "../images/products/ic-findik-500.png" }
                 ]
             },
             "magnolya": {
-                baslik: "Fındıklı Magnolya",
-                bilgi: "Kolay • 20dk",
-                malzemeler: [
+                baslik_tr: "Fındıklı Magnolya",
+                baslik_en: "Hazelnut Magnolia",
+                bilgi_tr: "Kolay • 20dk",
+                bilgi_en: "Easy • 20 min",
+                malzemeler_tr: [
                     "1 litre süt",
                     "1 su bardağı toz şeker",
                     "2 yemek kaşığı un ve 2 yemek kaşığı nişasta",
@@ -156,7 +240,16 @@
                     "1.5 paket yulaflı bisküvi ve 1 su bardağı çekilmiş fındık",
                     "Taze çilek veya muz dilimleri"
                 ],
-                hazirlanisi: [
+                malzemeler_en: [
+                    "1 liter of milk",
+                    "1 cup of granulated sugar",
+                    "2 tablespoons of flour and 2 tablespoons of starch",
+                    "1 egg yolk",
+                    "1 pack of liquid heavy cream (200ml)",
+                    "1.5 packs of oatmeal biscuits and 1 cup of ground hazelnuts",
+                    "Fresh strawberry or banana slices"
+                ],
+                hazirlanisi_tr: [
                     "Süt, şeker, un, nişasta ve yumurta sarısını tencerede sürekli karıştırarak koyulaşana kadar pişirin.",
                     "Altını kapatıp ılımaya bırakın. Ilıyan muhallebiye sıvı kremayı ekleyip mikserle pürüzsüz olana dek çırpın.",
                     "Bisküvileri ve fındıkları mutfak robotundan geçirerek toz haline getirin.",
@@ -164,69 +257,98 @@
                     "Üzerine muhallebi ekleyin ve kup dolana kadar bir kat bisküvi bir kat muhallebi şeklinde tekrarlayın.",
                     "Buzdolabında en az 2 saat dinlendirdikten sonra soğuk servis yapın."
                 ],
+                hazirlanisi_en: [
+                    "Cook milk, sugar, flour, starch, and egg yolk in a pot by stirring constantly until thick.",
+                    "Turn off heat and let cool. Add liquid cream to the warm pudding and whisk until smooth.",
+                    "Crush biscuits and hazelnuts in a food processor until powder.",
+                    "Put biscuit mixture at the bottom of serving cups, place fruit slices along the sides.",
+                    "Add pudding and repeat layers of biscuit and pudding until the cup is full.",
+                    "Chill in the fridge for at least 2 hours, then serve cold."
+                ],
                 onerilenUrunler: [
-                    { ad: "Kavrulmuş Fındık", aciklama: "500 gr", fiyat: 375.00, img: "../images/products/kavrulmus-findik-500.png" },
-                    { ad: "İç Fındık", aciklama: "500 gr", fiyat: 325.00, img: "../images/products/ic-findik-500.png" }
+                    { ad_tr: "Kavrulmuş Fındık", ad_en: "Roasted Hazelnuts", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat: 375.00, img: "../images/products/kavrulmus-findik-500.png" },
+                    { ad_tr: "İç Fındık", ad_en: "Raw Hazelnut Kernels", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat: 325.00, img: "../images/products/ic-findik-500.png" }
                 ]
             },
             "dondurma": {
-                baslik: "Muzlu Fındıklı Dondurma",
-                bilgi: "Çok Kolay • 10dk",
-                malzemeler: [
+                baslik_tr: "Muzlu Fındıklı Dondurma",
+                baslik_en: "Banana Hazelnut Ice Cream",
+                bilgi_tr: "Çok Kolay • 10dk",
+                bilgi_en: "Very Easy • 10 min",
+                malzemeler_tr: [
                     "3 adet olgunlaşmış ve dondurulmuş muz",
                     "2 yemek kaşığı doğal fındık ezmesi",
                     "1 çay bardağı soğuk süt",
                     "Yarım su bardağı kavrulmuş fındık kırığı"
                 ],
-                hazirlanisi: [
+                malzemeler_en: [
+                    "3 ripe and frozen bananas",
+                    "2 tablespoons of natural hazelnut paste",
+                    "1 tea glass of cold milk",
+                    "Half a cup of crushed roasted hazelnuts"
+                ],
+                hazirlanisi_tr: [
                     "Kabukları soyulup dilimlenmiş ve derin dondurucuda dondurulmuş muzları mutfak robotuna alın.",
                     "Üzerine soğuk sütü ve fındık ezmesini ilave edin.",
                     "Tüm malzemeler tamamen karışıp kremsi bir dondurma kıvamı alana kadar robottan geçirin.",
                     "Karışım hazır olduğunda içine kavrulmuş fındık kırıklarını ekleyin ve kaşıkla yavaşça karıştırın.",
                     "Dilerseniz hemen tüketebilir veya kapalı bir kapta dondurucuya kaldırabilirsiniz."
                 ],
+                hazirlanisi_en: [
+                    "Put peeled, sliced, and frozen bananas into a food processor.",
+                    "Add cold milk and hazelnut paste on top.",
+                    "Blend until all ingredients are perfectly mixed and reach a creamy ice cream consistency.",
+                    "When the mixture is ready, add roasted hazelnut pieces and stir gently with a spoon.",
+                    "You can consume it immediately or store it in a sealed container in the freezer."
+                ],
                 onerilenUrunler: [
-                    { ad: "Fındık Ezmesi", aciklama: "350 gr", fiyat: 250.00, img: "../images/products/findik-ezmesi-350.png" },
-                    { ad: "Çifte Kavrulmuş Fındık", aciklama: "500 gr", fiyat: 375.00, img: "../images/products/kavrulmus-findik-500.png" }
+                    { ad_tr: "Fındık Ezmesi", ad_en: "Hazelnut Paste", aciklama_tr: "350 gr", aciklama_en: "350 g", fiyat: 250.00, img: "../images/products/findik-ezmesi-350.png" },
+                    { ad_tr: "Çifte Kavrulmuş Fındık", ad_en: "Double Roasted Hazelnuts", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat: 375.00, img: "../images/products/kavrulmus-findik-500.png" }
                 ]
             }
         };
 
+        // URL Parametrelerini Çekme
         const urlParams = new URLSearchParams(window.location.search);
         let tarifId = urlParams.get("id");
-
-        if (!tarifVeritabani[tarifId]) {
-            tarifId = "kurabiye";
-        }
+        if (!tarifVeritabani[tarifId]) { tarifId = "kurabiye"; }
+        
         const seciliTarif = tarifVeritabani[tarifId];
 
+        // Aktif Dile Göre İçerikleri Ayıklama
+        const aktifBaslik = currentPageLang === "en" ? seciliTarif.baslik_en : seciliTarif.baslik_tr;
+        const aktifBilgi = currentPageLang === "en" ? seciliTarif.bilgi_en : seciliTarif.bilgi_tr;
+        const aktifMalzemeler = currentPageLang === "en" ? seciliTarif.malzemeler_en : seciliTarif.malzemeler_tr;
+        const aktifHazirlanisi = currentPageLang === "en" ? seciliTarif.hazirlanisi_en : seciliTarif.hazirlanisi_tr;
+
         let malzemelerHTML = "";
-        seciliTarif.malzemeler.forEach(madde => {
-            malzemelerHTML += `<li>${madde}</li>`;
-        });
+        aktifMalzemeler.forEach(madde => { malzemelerHTML += `<li>${madde}</li>`; });
 
         let hazirlanisiHTML = "";
-        seciliTarif.hazirlanisi.forEach(adim => {
-            hazirlanisiHTML += `<li>${adim}</li>`;
-        });
+        aktifHazirlanisi.forEach(adim => { hazirlanisiHTML += `<li>${adim}</li>`; });
 
+        // Çevrilecek Sabit Alt Başlıklar
+        const incTitle = currentPageLang === "en" ? "Ingredients" : "İçindekiler";
+        const stepTitle = currentPageLang === "en" ? "Step-by-Step Preparation" : "Adım Adım Hazırlanışı";
+
+        // Ekrana Yazdırma
         const container = document.getElementById("recipe-container");
         container.innerHTML = `
             <div class="recipe-header" style="text-align: center; margin-bottom: 40px;">
-                <h1 style="color: #8e44ad; font-size: 2.5rem;">${seciliTarif.baslik}</h1>
-                <p style="color: #7f8c8d; font-size: 1.1rem;"><i class="fa-regular fa-clock"></i> ${seciliTarif.bilgi}</p>
+                <h1 style="color: #8e44ad; font-size: 2.5rem;">${aktifBaslik}</h1>
+                <p style="color: #7f8c8d; font-size: 1.1rem;"><i class="fa-regular fa-clock"></i> ${aktifBilgi}</p>
             </div>
 
             <div class="recipe-content" style="display: flex; gap: 40px; margin-bottom: 50px; flex-wrap: wrap;">
                 <div class="ingredients" style="flex: 1; min-width: 250px; background: #fff; padding: 25px; border-radius: 8px; border: 1px solid #eee; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
-                    <h3 style="color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #eaeaea; padding-bottom: 10px;">İçindekiler</h3>
+                    <h3 style="color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #eaeaea; padding-bottom: 10px;">${incTitle}</h3>
                     <ul style="list-style-type: disc; margin-left: 20px; line-height: 2;">
                         ${malzemelerHTML}
                     </ul>
                 </div>
 
                 <div class="instructions" style="flex: 2; min-width: 300px;">
-                    <h3 style="color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #eaeaea; padding-bottom: 10px;">Adım Adım Hazırlanışı</h3>
+                    <h3 style="color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #eaeaea; padding-bottom: 10px;">${stepTitle}</h3>
                     <ol style="margin-left: 20px; line-height: 2;">
                         ${hazirlanisiHTML}
                     </ol>
@@ -234,25 +356,28 @@
             </div>
         `;
 
+        // Önerilen Ürünleri Basma
         const productsGrid = document.getElementById("related-products-grid");
         let urunlerHTML = "";
+        const paraBirimiSymbol = currentPageLang === "en" ? "$" : "TL";
+        const sepetButonMetni = currentPageLang === "en" ? "Add to Cart" : "Sepete Ekle";
         
         seciliTarif.onerilenUrunler.forEach(urun => {
-            // KART GENİŞLİĞİ 260PX OLARAK SABİTLENDİ
+            const urunIsmi = currentPageLang === "en" ? urun.ad_en : urun.ad_tr;
+            const urunDetay = currentPageLang === "en" ? urun.aciklama_en : urun.aciklama_tr;
+
             urunlerHTML += `
             <div class="product-card" style="width: 260px; position: relative; background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
                 <button class="fav-btn" style="position: absolute; top: 15px; right: 15px; background: #fff; border: none; font-size: 1.5rem; color: #ccc; cursor: pointer; border-radius: 50%; width: 35px; height: 35px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; z-index: 10;"><i class="fa-solid fa-heart"></i></button>
-                <img src="${urun.img}" alt="${urun.ad}" style="height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; width: 100%;">
-                <h3 style="font-size: 1.15rem; color: #333; margin-bottom: 5px;">${urun.ad}</h3>
-                <p style="color: #7f8c8d; font-size: 0.95rem; margin-bottom: 15px;">${urun.aciklama}</p>
-                <span class="price" style="display: block; font-size: 1.2rem; font-weight: bold; color: #27ae60; margin-bottom: 15px;">${urun.fiyat.toFixed(2)} TL</span>
-                <button class="add-to-cart-btn" style="width: 100%; padding: 10px; background-color: #2c3e50; color: #fff; border: none; border-radius: 6px; cursor: pointer;">Sepete Ekle</button>
+                <img src="${urun.img}" alt="${urunIsmi}" style="height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; width: 100%;">
+                <h3 style="font-size: 1.15rem; color: #333; margin-bottom: 5px;">${urunIsmi}</h3>
+                <p style="color: #7f8c8d; font-size: 0.95rem; margin-bottom: 15px;">${urunDetay}</p>
+                <span class="price" style="display: block; font-size: 1.2rem; font-weight: bold; color: #27ae60; margin-bottom: 15px;">${urun.fiyat.toFixed(2)} ${paraBirimiSymbol}</span>
+                <button class="add-to-cart-btn" style="width: 100%; padding: 10px; background-color: #2c3e50; color: #fff; border: none; border-radius: 6px; cursor: pointer;">${sepetButonMetni}</button>
             </div>
             `;
         });
-        
         productsGrid.innerHTML = urunlerHTML;
-        
     </script>
     
     <script src="../js/main.js"></script>

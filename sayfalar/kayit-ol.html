@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bindaş Fındık | Yeni Üyelik</title>
+    <title data-i18n="register_site_title">Bindaş Fındık | Yeni Üyelik</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -49,6 +49,11 @@
                 </a>
             </div>
             <div class="header-icons">
+                <!-- Dil Değiştirme Butonları (Eklendi) -->
+                <div class="lang-switcher" style="display: inline-block; margin-right: 15px;">
+                    <button id="btn-tr" style="background:none; border:none; cursor:pointer; font-weight:bold;">TR</button> | 
+                    <button id="btn-en" style="background:none; border:none; cursor:pointer; color:#777;">EN</button>
+                </div>
                 <a href="giris-yap.html" style="color: #e67e22;" title="Üye Ol/Giriş Yap"><i class="fa-solid fa-user"></i></a>
                 <a href="favoriler.html" title="Favoriler"><i class="fa-regular fa-heart"></i></a>
                 <a href="sepetim.html" title="Sepetim"><i class="fa-solid fa-bag-shopping"></i></a>
@@ -56,53 +61,54 @@
         </div>
         <nav class="main-nav" id="mainNav">
             <ul>
-                <li><a href="urunler.html">Ürünler</a></li>
-                <li><a href="tarifler.html">Tarifler</a></li>
-                <li><a href="hakkimizda.html">Hakkımızda</a></li>
-                <li><a href="yardim-destek.html">Yardım & Destek</a></li>
+                <li><a href="urunler.html" data-i18n="nav_products">Ürünler</a></li>
+                <li><a href="tarifler.html" data-i18n="nav_recipes">Tarifler</a></li>
+                <li><a href="hakkimizda.html" data-i18n="nav_about">Hakkımızda</a></li>
+                <li><a href="yardim-destek.html" data-i18n="nav_support">Yardım & Destek</a></li>
             </ul>
         </nav>
     </header>
 
     <main style="padding: 0 20px;">
         <div class="register-container">
-            <h2 style="text-align: center; margin-bottom: 20px; color: #2c3e50;">Yeni Üyelik</h2>
+            <h2 data-i18n="register_main_title" style="text-align: center; margin-bottom: 20px; color: #2c3e50;">Yeni Üyelik</h2>
             
             <form action="#">
                 <div class="form-group">
-                    <label for="reg-ad">Ad</label>
+                    <label for="reg-ad" data-i18n="lbl_name">Ad</label>
                     <input type="text" id="reg-ad" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="reg-soyad">Soyad</label>
+                    <label for="reg-soyad" data-i18n="lbl_surname">Soyad</label>
                     <input type="text" id="reg-soyad" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="reg-tel">Telefon</label>
+                    <label for="reg-tel" data-i18n="lbl_phone">Telefon</label>
                     <input type="tel" id="reg-tel" placeholder="05xx xxx xx xx" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="reg-adres">Adres</label>
-                    <textarea id="reg-adres" placeholder="Teslimat adresiniz..." required></textarea>
+                    <label for="reg-adres" data-i18n="lbl_address">Adres</label>
+                    <textarea id="reg-adres" data-i18n-placeholder="ph_address" placeholder="Teslimat adresiniz..." required></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label for="reg-mail">Mail (E-posta)</label>
+                    <label for="reg-mail" data-i18n="lbl_email">Mail (E-posta)</label>
                     <input type="email" id="reg-mail" placeholder="ornek@mail.com" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="reg-pass">Şifre</label>
+                    <label for="reg-pass" data-i18n="lbl_password">Şifre</label>
                     <input type="password" id="reg-pass" placeholder="••••••••" required>
                 </div>
                 
-                <button type="submit" class="btn" style="width: 100%; background-color: #27ae60; border: none; font-size: 1rem; cursor: pointer;">Üye Ol / Giriş Yap</button>
+                <button type="submit" class="btn" data-i18n="btn_register" style="width: 100%; background-color: #27ae60; border: none; font-size: 1rem; cursor: pointer;">Üye Ol / Giriş Yap</button>
                 
                 <p style="text-align: center; margin-top: 15px; font-size: 0.9rem; color: #7f8c8d;">
-                    Zaten hesabınız var mı? <a href="giris-yap.html" style="color: #e67e22; text-decoration: none; font-weight: bold;">Giriş Yapın</a>
+                    <span data-i18n="text_already_account">Zaten hesabınız var mı?</span> 
+                    <a href="giris-yap.html" data-i18n="link_login" style="color: #e67e22; text-decoration: none; font-weight: bold;">Giriş Yapın</a>
                 </p>
             </form>
         </div>

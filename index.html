@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bindaş Fındık | Anasayfa</title>
+    <title data-i18n="site_title">Bindaş Fındık | Anasayfa</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -20,6 +20,12 @@
             </div>
             
             <div class="header-icons">
+                <!-- DİL DEĞİŞTİRME BUTONLARI (Yeni eklendi) -->
+                <div class="lang-switcher" style="display: inline-block; margin-right: 15px;">
+                    <button id="btn-tr" style="background:none; border:none; cursor:pointer; font-weight:bold;">TR</button> | 
+                    <button id="btn-en" style="background:none; border:none; cursor:pointer; color:#777;">EN</button>
+                </div>
+
                 <a href="sayfalar/giris-yap.html" title="Üye Ol/Giriş Yap"><i class="fa-regular fa-user"></i></a>
                 <a href="sayfalar/favoriler.html" title="Favoriler"><i class="fa-regular fa-heart"></i></a>
                 <a href="sayfalar/sepetim.html" title="Sepetim"><i class="fa-solid fa-bag-shopping"></i></a>
@@ -28,26 +34,25 @@
 
         <nav class="main-nav" id="mainNav">
             <ul>
-                <li><a href="sayfalar/urunler.html">Ürünler</a></li>
-                <li><a href="sayfalar/tarifler.html">Tarifler</a></li>
-                <li><a href="sayfalar/hakkimizda.html">Hakkımızda</a></li>
-                <li><a href="sayfalar/yardim-destek.html">Yardım & Destek</a></li>
+                <li><a href="sayfalar/urunler.html" data-i18n="nav_products">Ürünler</a></li>
+                <li><a href="sayfalar/tarifler.html" data-i18n="nav_recipes">Tarifler</a></li>
+                <li><a href="sayfalar/hakkimizda.html" data-i18n="nav_about">Hakkımızda</a></li>
+                <li><a href="sayfalar/yardim-destek.html" data-i18n="nav_support">Yardım & Destek</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section class="hero-banner">
-            <h1>En Taze Fındıklar Kapınızda</h1>
-            <p>Türkiye'nin her yerine anlaşmalı kargo ile çerezlik fındık gönderilir.</p>
-            <a href="sayfalar/urunler.html" class="btn">Hemen İncele</a>
+            <h1 data-i18n="hero_title">En Taze Fındıklar Kapınızda</h1>
+            <p data-i18n="hero_subtitle">Türkiye'nin her yerine anlaşmalı kargo ile çerezlik fındık gönderilir.</p>
+            <a href="sayfalar/urunler.html" class="btn" data-i18n="hero_btn">Hemen İncele</a>
         </section>
 
         <section class="best-sellers">
-            <h2>En Çok Satılan Ürünler</h2>
+            <h2 data-i18n="best_sellers_title">En Çok Satılan Ürünler</h2>
             
             <div class="product-grid" id="grid-best-sellers"></div>
-            
         </section>
     </main>
 

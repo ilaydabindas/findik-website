@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bindaş Fındık | Üye Ol & Giriş Yap</title>
+    <title data-i18n="login_site_title">Bindaş Fındık | Üye Ol & Giriş Yap</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -50,6 +50,11 @@
                 </a>
             </div>
             <div class="header-icons">
+                <!-- Dil Değiştirme Butonları (Eklendi) -->
+                <div class="lang-switcher" style="display: inline-block; margin-right: 15px;">
+                    <button id="btn-tr" style="background:none; border:none; cursor:pointer; font-weight:bold;">TR</button> | 
+                    <button id="btn-en" style="background:none; border:none; cursor:pointer; color:#777;">EN</button>
+                </div>
                 <a href="giris-yap.html" style="color: #e67e22;" title="Üye Ol/Giriş Yap"><i class="fa-solid fa-user"></i></a>
                 <a href="favoriler.html" title="Favoriler"><i class="fa-regular fa-heart"></i></a>
                 <a href="sepetim.html" title="Sepetim"><i class="fa-solid fa-bag-shopping"></i></a>
@@ -57,35 +62,38 @@
         </div>
         <nav class="main-nav" id="mainNav">
             <ul>
-                <li><a href="urunler.html">Ürünler</a></li>
-                <li><a href="tarifler.html">Tarifler</a></li>
-                <li><a href="hakkimizda.html">Hakkımızda</a></li>
-                <li><a href="yardim-destek.html">Yardım & Destek</a></li>
+                <li><a href="urunler.html" data-i18n="nav_products">Ürünler</a></li>
+                <li><a href="tarifler.html" data-i18n="nav_recipes">Tarifler</a></li>
+                <li><a href="hakkimizda.html" data-i18n="nav_about">Hakkımızda</a></li>
+                <li><a href="yardim-destek.html" data-i18n="nav_support">Yardım & Destek</a></li>
             </ul>
         </nav>
     </header>
 
     <main style="padding: 40px 5%;">
         <div class="auth-container">
+            <!-- Giriş Yap Sol Kutu -->
             <div class="auth-box">
-                <h2 style="margin-bottom: 20px; color: #2c3e50;">Giriş Yap</h2>
+                <h2 data-i18n="btn_login" style="margin-bottom: 20px; color: #2c3e50;">Giriş Yap</h2>
                 <form>
                     <div class="form-group">
-                        <label for="login-email">E-posta adresi</label>
-                        <input type="email" id="login-email" placeholder="E-posta adresiniz">
+                        <label for="login-email" data-i18n="lbl_email">E-posta adresi</label>
+                        <input type="email" id="login-email" data-i18n-placeholder="ph_email" placeholder="E-posta adresiniz">
                     </div>
                     <div class="form-group">
-                        <label for="login-password">Şifre</label>
-                        <input type="password" id="login-password" placeholder="Şifreniz">
+                        <label for="login-password" data-i18n="lbl_password">Şifre</label>
+                        <input type="password" id="login-password" data-i18n-placeholder="lbl_password" placeholder="Şifreniz">
                     </div>
-                    <button type="submit" class="btn" style="width: 100%;">Giriş Yap</button>
+                    <button type="submit" class="btn" data-i18n="btn_login" style="width: 100%;">Giriş Yap</button>
                 </form>
             </div>
 
+            <!-- Yeni Üyelik Sağ Kutu -->
             <div class="auth-box">
-                <h2 style="margin-bottom: 20px; color: #2c3e50;">Yeni Üyelik</h2>
+                <h2 data-i18n="register_main_title" style="margin-bottom: 20px; color: #2c3e50;">Yeni Üyelik</h2>
                 <form>
-                    <a href="kayit-ol.html" class="btn" style="width: 100%; text-align: center; background-color: #27ae60;">Kayıt Ol Sayfasına Git</a>
+                    <!-- Yönlendirme linkini yeni yaptığımız çok dilli kayıt sayfa adına göre (kayit-ol.html veya yeni-uyelik.html) düzenleyebilirsin -->
+                    <a href="kayit-ol.html" class="btn" data-i18n="go_register_page" style="width: 100%; text-align: center; background-color: #27ae60;">Kayıt Ol Sayfasına Git</a>
                 </form>
             </div>
         </div>
