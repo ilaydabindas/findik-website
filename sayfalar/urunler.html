@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fındık Dünyası | Tüm Ürünler</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="top-bar">
+            <div class="left-spacer"></div>
+            <div class="logo">
+                <a href="../index.html">FINDIK LOGO / NUTS</a>
+            </div>
+            <div class="header-icons">
+                <a href="giris-yap.html" title="Üye Ol/Giriş Yap"><i class="fa-regular fa-user"></i></a>
+                <a href="favoriler.html" title="Favoriler"><i class="fa-regular fa-heart"></i></a>
+                <a href="sepetim.html" title="Sepetim"><i class="fa-solid fa-bag-shopping"></i></a>
+            </div>
+        </div>
+
+        <nav class="main-nav" id="mainNav">
+            <ul>
+                <li><a href="urunler.html" style="color: #e67e22;">Ürünler</a></li>
+                <li><a href="tarifler.html">Tarifler</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="yardim-destek.html">Yardım & Destek</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main style="padding: 40px 5%; max-width: 1300px; margin: 0 auto;">
+        
+        <div class="products-layout" style="display: flex; gap: 40px; align-items: flex-start;">
+            
+            <aside class="category-sidebar" style="flex: 1; position: sticky; top: 20px; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eaeaea;">
+                <h3 style="color: #8e44ad; margin-bottom: 20px; font-size: 1.4rem; border-bottom: 1px solid #eee; padding-bottom: 10px;">Kategoriler</h3>
+                <ul style="list-style: none; line-height: 2.2;">
+                    <li><a href="#ic-findik" style="text-decoration: none; color: #555; font-weight: 500; display: block; transition: color 0.2s;">İç Fındık</a></li>
+                    <li><a href="#kabuklu-findik" style="text-decoration: none; color: #555; font-weight: 500; display: block; transition: color 0.2s;">Kabuklu Fındık</a></li>
+                    <li><a href="#kavrulmus-findik" style="text-decoration: none; color: #555; font-weight: 500; display: block; transition: color 0.2s;">Kavrulmuş / Çifte Kavrulmuş Fındık</a></li>
+                    <li><a href="#findik-ezmesi" style="text-decoration: none; color: #555; font-weight: 500; display: block; transition: color 0.2s;">Fındık Ezmesi / Kreması</a></li>
+                    <li><a href="#findik-unu" style="text-decoration: none; color: #555; font-weight: 500; display: block; transition: color 0.2s;">Fındık Unu</a></li>
+                    <li><a href="#findik-yagi" style="text-decoration: none; color: #555; font-weight: 500; display: block; transition: color 0.2s;">Fındık Yağı</a></li>
+                    <li><a href="#findikli-cikolata" style="text-decoration: none; color: #555; font-weight: 500; display: block; transition: color 0.2s;">Fındıklı Çikolata / Gofret</a></li>
+                </ul>
+            </aside>
+
+            <div class="products-content" style="flex: 3;">
+                
+                <section id="ic-findik" style="margin-bottom: 60px; padding-top: 20px;">
+                    <h2 style="border-bottom: 2px solid #e67e22; padding-bottom: 10px; margin-bottom: 30px; color: #2c3e50; font-size: 1.8rem;">İç Fındık</h2>
+                    <div class="product-grid" id="grid-ic-findik"></div>
+                </section>
+
+                <section id="kabuklu-findik" style="margin-bottom: 60px; padding-top: 20px;">
+                    <h2 style="border-bottom: 2px solid #e67e22; padding-bottom: 10px; margin-bottom: 30px; color: #2c3e50; font-size: 1.8rem;">Kabuklu Fındık</h2>
+                    <div class="product-grid" id="grid-kabuklu-findik"></div>
+                </section>
+
+                <section id="kavrulmus-findik" style="margin-bottom: 60px; padding-top: 20px;">
+                    <h2 style="border-bottom: 2px solid #e67e22; padding-bottom: 10px; margin-bottom: 30px; color: #2c3e50; font-size: 1.8rem;">Kavrulmuş / Çifte Kavrulmuş Fındık</h2>
+                    <div class="product-grid" id="grid-kavrulmus-findik"></div>
+                </section>
+
+                <section id="findik-ezmesi" style="margin-bottom: 60px; padding-top: 20px;">
+                    <h2 style="border-bottom: 2px solid #e67e22; padding-bottom: 10px; margin-bottom: 30px; color: #2c3e50; font-size: 1.8rem;">Fındık Ezmesi / Kreması</h2>
+                    <div class="product-grid" id="grid-findik-ezmesi"></div>
+                </section>
+
+                <section id="findik-unu" style="margin-bottom: 60px; padding-top: 20px;">
+                    <h2 style="border-bottom: 2px solid #e67e22; padding-bottom: 10px; margin-bottom: 30px; color: #2c3e50; font-size: 1.8rem;">Fındık Unu</h2>
+                    <div class="product-grid" id="grid-findik-unu"></div>
+                </section>
+
+                <section id="findik-yagi" style="margin-bottom: 60px; padding-top: 20px;">
+                    <h2 style="border-bottom: 2px solid #e67e22; padding-bottom: 10px; margin-bottom: 30px; color: #2c3e50; font-size: 1.8rem;">Fındık Yağı</h2>
+                    <div class="product-grid" id="grid-findik-yagi"></div>
+                </section>
+
+                <section id="findikli-cikolata" style="margin-bottom: 60px; padding-top: 20px;">
+                    <h2 style="border-bottom: 2px solid #e67e22; padding-bottom: 10px; margin-bottom: 30px; color: #2c3e50; font-size: 1.8rem;">Fındıklı Çikolata / Gofret</h2>
+                    <div class="product-grid" id="grid-findikli-cikolata"></div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Fındık Dünyası. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    
+    <style>
+        .category-sidebar a:hover {
+            color: #e67e22 !important;
+            padding-left: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* Yalnızca ürünler sayfasındaki kartları küçültür ve 3'e böler */
+        .products-content .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 20px;
+        }
+        
+        .products-content .product-card {
+            padding: 15px; 
+        }
+        
+        .products-content .product-card img,
+        .products-content .img-placeholder {
+            height: 180px !important; 
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .products-content .product-card h3 {
+            font-size: 1.15rem; 
+        }
+        
+        .products-content .price {
+            font-size: 1.3rem !important; 
+            margin-bottom: 15px !important;
+            display: block;
+        }
+
+        /* Dar ekranlarda ürünleri tekrar 2'li veya 1'li dizilime geçirir */
+        @media (max-width: 1024px) {
+            .products-content .product-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+        @media (max-width: 768px) {
+            .products-content .product-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarif Detayı | Fındık Dünyası</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="top-bar">
+            <div class="left-spacer"></div>
+            <div class="logo"><a href="../index.html">FINDIK LOGO / NUTS</a></div>
+            <div class="header-icons">
+                <a href="giris-yap.html" title="Üye Ol/Giriş Yap"><i class="fa-regular fa-user"></i></a>
+                <a href="favoriler.html" title="Favoriler"><i class="fa-regular fa-heart"></i></a>
+                <a href="sepetim.html"><i class="fa-solid fa-bag-shopping"></i></a>
+            </div>
+        </div>
+        <nav class="main-nav" id="mainNav">
+            <ul>
+                <li><a href="urunler.html">Ürünler</a></li>
+                <li><a href="tarifler.html" style="color: #e67e22;">Tarifler</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="yardim-destek.html">Yardım & Destek</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-detail-page" style="padding: 40px 5%; max-width: 1000px; margin: 0 auto;">
+        
+        <div id="recipe-container"></div>
+
+        <hr style="border: 0; border-top: 1px solid #eaeaea; margin-top: 50px; margin-bottom: 30px;">
+        <h3 style="text-align: center; margin-bottom: 20px; color: #2c3e50;">Bu Tarifte Kullanılan Ürünleri Hemen Alın</h3>
+        
+        <div id="related-products-grid" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; max-width: 600px; margin: 0 auto;">
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Fındık Dünyası. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        const tarifVeritabani = {
+            "kurabiye": {
+                baslik: "Fındıklı Kurabiye",
+                bilgi: "Kolay • 25dk",
+                malzemeler: [
+                    "125 gr oda sıcaklığında tereyağı",
+                    "Yarım çay bardağı sıvı yağ",
+                    "1 adet yumurta sarısı",
+                    "1 su bardağı pudra şekeri",
+                    "1 su bardağı çekilmiş fındık içi",
+                    "1 paket vanilya ve kabartma tozu",
+                    "Aldığı kadar un (yaklaşık 2.5 su bardağı)"
+                ],
+                hazirlanisi: [
+                    "Tereyağı, sıvı yağ, yumurta sarısı ve pudra şekerini derin bir kapta güzelce karıştırın.",
+                    "Un, kabartma tozu ve vanilyayı eleyerek ekleyip yumuşak bir hamur yoğurun.",
+                    "Çekilmiş fındık içini katıp hamuru toparlayın.",
+                    "Ceviz büyüklüğünde parçalar koparıp yuvarlayın, önce yumurta akına sonra fındığa bulayarak tepsiye dizin.",
+                    "Önceden ısıtılmış 180 derece fırında 15-20 dakika pişirin."
+                ],
+                onerilenUrunler: [
+                    { ad: "İç Fındık", aciklama: "500 gr", fiyat: 325.00, img: "../images/products/ic-findik-500.png" },
+                    { ad: "Fındık Ezmesi", aciklama: "350 gr", fiyat: 250.00, img: "../images/products/findik-ezmesi-350.png" }
+                ]
+            },
+            "brownie": {
+                baslik: "Fındıklı Brownie",
+                bilgi: "Orta • 40dk",
+                malzemeler: [
+                    "200 gr bitter çikolata",
+                    "150 gr tereyağı",
+                    "3 adet oda sıcaklığında yumurta",
+                    "1 su bardağı toz şeker",
+                    "1 su bardağı un",
+                    "1 su bardağı iri kıyılmış kavrulmuş fındık"
+                ],
+                hazirlanisi: [
+                    "Tereyağı ve bitter çikolatayı benmari usulü eritip ılımaya bırakın.",
+                    "Ayrı bir kapta yumurta ve şekeri beyazlaşana kadar mikserle çırpın.",
+                    "Eriyen çikolatalı karışımı yumurtalı karışıma yavaşça ekleyerek alttan üste doğru karıştırın.",
+                    "Unu eleyerek karışıma ilave edin.",
+                    "Son olarak iri kıyılmış fındıkları ekleyin ve fırın kabına dökün.",
+                    "160 derece önceden ısıtılmış fırında 25-30 dakika pişirin. İçi hafif nemli kalmalıdır."
+                ],
+                onerilenUrunler: [
+                    { ad: "Kavrulmuş Fındık", aciklama: "500 gr", fiyat: 375.00, img: "../images/products/kavrulmus-findik-500.png" }
+                ]
+            },
+            "sutlutatli": {
+                baslik: "Fındık Ezmeli Sütlü Tatlı",
+                bilgi: "Kolay • 30dk",
+                malzemeler: [
+                    "1 litre süt",
+                    "1 su bardağı toz şeker",
+                    "3 yemek kaşığı un",
+                    "2 yemek kaşığı buğday nişastası",
+                    "3 yemek kaşığı fındık ezmesi",
+                    "1 yemek kaşığı tereyağı"
+                ],
+                hazirlanisi: [
+                    "Süt, şeker, un ve nişastayı derin bir tencereye alın.",
+                    "Çırpma teliyle sürekli karıştırarak koyulaşıp göz göz olana kadar pişirin.",
+                    "Kaynayan muhallebinin altını kapatın, içine tereyağı ve fındık ezmesini ekleyin.",
+                    "Mikser yardımıyla pürüzsüz hale gelene kadar çırpın.",
+                    "Tatlıyı kaselere paylaştırın, buzdolabında soğumaya bırakın.",
+                    "Servis yapmadan önce üzerini bolca fındık kırığı ile süsleyin."
+                ],
+                onerilenUrunler: [
+                    { ad: "Fındık Ezmesi", aciklama: "700 gr", fiyat: 400.00, img: "../images/products/findik-ezmesi-700.png" }
+                ]
+            },
+            "baklava": {
+                baslik: "Fındıklı Baklava Sarma",
+                bilgi: "Orta • 60dk",
+                malzemeler: [
+                    "1 paket baklavalık hazır yufka",
+                    "250 gr eritilmiş saf tereyağı",
+                    "2 su bardağı ince çekilmiş fındık",
+                    "Şerbeti için: 3 su bardağı şeker, 3 su bardağı su, 1 dilim limon"
+                ],
+                hazirlanisi: [
+                    "Şerbeti hazırlamak için su ve şekeri kaynatın, limon dilimini ekleyip altını kapatın ve soğumaya bırakın.",
+                    "Baklavalık yufkadan bir yaprak alıp tezgaha serin, üzerine fırçayla hafifçe tereyağı sürün.",
+                    "İkinci yufkayı üzerine serin ve tekrar yağlayın.",
+                    "Yufkanın her yerine bolca çekilmiş fındık serpin ve rulo sarın.",
+                    "Oklavanın iki ucundan ortaya doğru yufkayı büzüştürün ve oklavayı çıkararak fırın tepsisine dizin.",
+                    "Kalan tereyağını üzerlerine gezdirin ve 180 derece fırında kızarana kadar pişirin. Fırından çıkan sıcak tatlıya soğuk şerbeti dökün."
+                ],
+                onerilenUrunler: [
+                    { ad: "İç Fındık", aciklama: "500 gr", fiyat: 325.00, img: "../images/products/ic-findik-500.png" }
+                ]
+            },
+            "magnolya": {
+                baslik: "Fındıklı Magnolya",
+                bilgi: "Kolay • 20dk",
+                malzemeler: [
+                    "1 litre süt",
+                    "1 su bardağı toz şeker",
+                    "2 yemek kaşığı un ve 2 yemek kaşığı nişasta",
+                    "1 adet yumurta sarısı",
+                    "1 kutu sıvı krema (200ml)",
+                    "1.5 paket yulaflı bisküvi ve 1 su bardağı çekilmiş fındık",
+                    "Taze çilek veya muz dilimleri"
+                ],
+                hazirlanisi: [
+                    "Süt, şeker, un, nişasta ve yumurta sarısını tencerede sürekli karıştırarak koyulaşana kadar pişirin.",
+                    "Altını kapatıp ılımaya bırakın. Ilıyan muhallebiye sıvı kremayı ekleyip mikserle pürüzsüz olana dek çırpın.",
+                    "Bisküvileri ve fındıkları mutfak robotundan geçirerek toz haline getirin.",
+                    "Servis kuplarının tabanına bisküvili karışımdan koyun, kenarlarına meyve dilimlerini dizin.",
+                    "Üzerine muhallebi ekleyin ve kup dolana kadar bir kat bisküvi bir kat muhallebi şeklinde tekrarlayın.",
+                    "Buzdolabında en az 2 saat dinlendirdikten sonra soğuk servis yapın."
+                ],
+                onerilenUrunler: [
+                    { ad: "Kavrulmuş Fındık", aciklama: "500 gr", fiyat: 375.00, img: "../images/products/kavrulmus-findik-500.png" },
+                    { ad: "İç Fındık", aciklama: "500 gr", fiyat: 325.00, img: "../images/products/ic-findik-500.png" }
+                ]
+            },
+            "dondurma": {
+                baslik: "Muzlu Fındıklı Dondurma",
+                bilgi: "Çok Kolay • 10dk",
+                malzemeler: [
+                    "3 adet olgunlaşmış ve dondurulmuş muz",
+                    "2 yemek kaşığı doğal fındık ezmesi",
+                    "1 çay bardağı soğuk süt",
+                    "Yarım su bardağı kavrulmuş fındık kırığı"
+                ],
+                hazirlanisi: [
+                    "Kabukları soyulup dilimlenmiş ve derin dondurucuda dondurulmuş muzları mutfak robotuna alın.",
+                    "Üzerine soğuk sütü ve fındık ezmesini ilave edin.",
+                    "Tüm malzemeler tamamen karışıp kremsi bir dondurma kıvamı alana kadar robottan geçirin.",
+                    "Karışım hazır olduğunda içine kavrulmuş fındık kırıklarını ekleyin ve kaşıkla yavaşça karıştırın.",
+                    "Dilerseniz hemen tüketebilir veya kapalı bir kapta dondurucuya kaldırabilirsiniz."
+                ],
+                onerilenUrunler: [
+                    { ad: "Fındık Ezmesi", aciklama: "350 gr", fiyat: 250.00, img: "../images/products/findik-ezmesi-350.png" },
+                    { ad: "Çifte Kavrulmuş Fındık", aciklama: "500 gr", fiyat: 375.00, img: "../images/products/kavrulmus-findik-500.png" }
+                ]
+            }
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let tarifId = urlParams.get("id");
+
+        if (!tarifVeritabani[tarifId]) {
+            tarifId = "kurabiye";
+        }
+        const seciliTarif = tarifVeritabani[tarifId];
+
+        let malzemelerHTML = "";
+        seciliTarif.malzemeler.forEach(madde => {
+            malzemelerHTML += `<li>${madde}</li>`;
+        });
+
+        let hazirlanisiHTML = "";
+        seciliTarif.hazirlanisi.forEach(adim => {
+            hazirlanisiHTML += `<li>${adim}</li>`;
+        });
+
+        const container = document.getElementById("recipe-container");
+        container.innerHTML = `
+            <div class="recipe-header" style="text-align: center; margin-bottom: 40px;">
+                <h1 style="color: #8e44ad; font-size: 2.5rem;">${seciliTarif.baslik}</h1>
+                <p style="color: #7f8c8d; font-size: 1.1rem;"><i class="fa-regular fa-clock"></i> ${seciliTarif.bilgi}</p>
+            </div>
+
+            <div class="recipe-content" style="display: flex; gap: 40px; margin-bottom: 50px; flex-wrap: wrap;">
+                <div class="ingredients" style="flex: 1; min-width: 250px; background: #fff; padding: 25px; border-radius: 8px; border: 1px solid #eee; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
+                    <h3 style="color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #eaeaea; padding-bottom: 10px;">İçindekiler</h3>
+                    <ul style="list-style-type: disc; margin-left: 20px; line-height: 2;">
+                        ${malzemelerHTML}
+                    </ul>
+                </div>
+
+                <div class="instructions" style="flex: 2; min-width: 300px;">
+                    <h3 style="color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #eaeaea; padding-bottom: 10px;">Adım Adım Hazırlanışı</h3>
+                    <ol style="margin-left: 20px; line-height: 2;">
+                        ${hazirlanisiHTML}
+                    </ol>
+                </div>
+            </div>
+        `;
+
+        const productsGrid = document.getElementById("related-products-grid");
+        let urunlerHTML = "";
+        
+        seciliTarif.onerilenUrunler.forEach(urun => {
+            // KART GENİŞLİĞİ 260PX OLARAK SABİTLENDİ
+            urunlerHTML += `
+            <div class="product-card" style="width: 260px; position: relative; background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
+                <button class="fav-btn" style="position: absolute; top: 15px; right: 15px; background: #fff; border: none; font-size: 1.5rem; color: #ccc; cursor: pointer; border-radius: 50%; width: 35px; height: 35px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; z-index: 10;"><i class="fa-solid fa-heart"></i></button>
+                <img src="${urun.img}" alt="${urun.ad}" style="height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; width: 100%;">
+                <h3 style="font-size: 1.15rem; color: #333; margin-bottom: 5px;">${urun.ad}</h3>
+                <p style="color: #7f8c8d; font-size: 0.95rem; margin-bottom: 15px;">${urun.aciklama}</p>
+                <span class="price" style="display: block; font-size: 1.2rem; font-weight: bold; color: #27ae60; margin-bottom: 15px;">${urun.fiyat.toFixed(2)} TL</span>
+                <button class="add-to-cart-btn" style="width: 100%; padding: 10px; background-color: #2c3e50; color: #fff; border: none; border-radius: 6px; cursor: pointer;">Sepete Ekle</button>
+            </div>
+            `;
+        });
+        
+        productsGrid.innerHTML = urunlerHTML;
+        
+    </script>
+    
+    <script src="../js/main.js"></script>
+</body>
+</html>
