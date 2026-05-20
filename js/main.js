@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { kategoriId: "grid-kavrulmus-findik", ad: "Çifte Kavrulmuş Fındık", aciklama: "500 gr", fiyat: 375.00, img: "../images/products/ckavrulmus-findik-500.png" },
         { kategoriId: "grid-kavrulmus-findik", ad: "Çifte Kavrulmuş Fındık", aciklama: "1 kg", fiyat: 700.00, img: "../images/products/ckavrulmus-findik-1.png" },
         { kategoriId: "grid-kavrulmus-findik", ad: "Çifte Kavrulmuş Fındık", aciklama: "2 kg", fiyat: 1350.00, img: "../images/products/ckavrulmus-findik-2.png" },
-        { kategoriId: "grid-kavrulmus-findik", ad: "Çifte Kavrulmuş Fındık", aciklama: "5 kg", fiyat: 3300.00, img: "../images/products/akavrulmus-findik-5.png", enCokSatan: true },
+        { kategoriId: "grid-kavrulmus-findik", ad: "Çifte Kavrulmuş Fındık", aciklama: "5 kg", fiyat: 3300.00, img: "../images/products/ckavrulmus-findik-5.png", enCokSatan: true },
 
         // FINDIK EZMESİ / KREMASI
         { kategoriId: "grid-findik-ezmesi", ad: "Fındık Ezmesi", aciklama: "350 gr", fiyat: 250.00, img: "../images/products/findik-ezmesi-350.png" },
