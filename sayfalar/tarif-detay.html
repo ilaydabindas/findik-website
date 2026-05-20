@@ -62,6 +62,7 @@
             return localStorage.getItem("preferredLanguage") || (navigator.language.startsWith("en") ? "en" : "tr");
         }
         const currentPageLang = getPageLang();
+        window.currentLang = currentPageLang;
 
         // 1. İKİ DİLLİ TARİF VERİTABANI
         const tarifVeritabani = {
@@ -360,6 +361,7 @@
         const productsGrid = document.getElementById("related-products-grid");
         let urunlerHTML = "";
         const paraBirimiSymbol = currentPageLang === "en" ? "$" : "TL";
+        window.paraBirimi = paraBirimiSymbol;
         const sepetButonMetni = currentPageLang === "en" ? "Add to Cart" : "Sepete Ekle";
         
         seciliTarif.onerilenUrunler.forEach(urun => {
@@ -372,7 +374,7 @@
                 <img src="${urun.img}" alt="${urunIsmi}" style="height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; width: 100%;">
                 <h3 style="font-size: 1.15rem; color: #333; margin-bottom: 5px;">${urunIsmi}</h3>
                 <p style="color: #7f8c8d; font-size: 0.95rem; margin-bottom: 15px;">${urunDetay}</p>
-                <span class="price" style="display: block; font-size: 1.2rem; font-weight: bold; color: #27ae60; margin-bottom: 15px;">${urun.fiyat.toFixed(2)} ${paraBirimiSymbol}</span>
+                <span class="price" style="display: block; font-size: 1.2rem; font-weight: bold; color: #27ae60; margin-bottom: 15px;">${(urun.fiyat ?? (currentPageLang === "en" ? urun.fiyat_en : urun.fiyat_tr)).toFixed(2)} ${paraBirimiSymbol}</span>
                 <button class="add-to-cart-btn" style="width: 100%; padding: 10px; background-color: #2c3e50; color: #fff; border: none; border-radius: 6px; cursor: pointer;">${sepetButonMetni}</button>
             </div>
             `;

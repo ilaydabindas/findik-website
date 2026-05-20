@@ -41,7 +41,7 @@ const translations = {
         "cat_findik-ezmesi": "Fındık Ezmesi / Kreması",
         "cat_findik-unu": "Fındık Unu",
         "cat_findik-yagi": "Fındık Yağı",
-        "cat_findikli-cikolata": "Fındıklı Çikolata / Gofret",
+        "cat_findikli-cikolata": "Fındıklı Çikolata",
 
         recipes_main_title: "NEFİS FINDIKLI TARİFLER",
         view_recipe: "Tarifi Gör",
@@ -91,7 +91,7 @@ const translations = {
         
         related_products_title: "Bu Tarifte Kullanılan Ürünleri Hemen Alın",
 
-        cart_main_title: "SEPET SİSTEMİ",
+        cart_main_title: "SEPETİM",
         th_product_name: "Ürün Adı",
         th_price: "Fiyat",
         th_quantity: "Ürün Adedi",
@@ -246,6 +246,8 @@ function getActiveLang() {
 
 document.addEventListener("DOMContentLoaded", () => {
     const currentLang = getActiveLang();
+    window.currentLang = currentLang;
+    const paraBirimi = translations[currentLang].currency;
 
     // Sayfa açılır açılmaz HTML dil etiketini ve statik metinleri giydiriyoruz
     document.documentElement.lang = currentLang;
@@ -327,13 +329,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================================
     function urunleriEkranaBas() {
         const isIndexPage = window.location.pathname.endsWith("index.html") || window.location.pathname.endsWith("/");
-        const paraBirimi = translations[currentLang].currency;
         const butonMetni = translations[currentLang].add_to_cart_btn;
 
         const anaSayfaGrid = document.getElementById("grid-best-sellers");
         let kategoriBulunduMu = false;
 
-        tumUrunler.forEach(urun => {
+        tumUrunler.forEach((urun, index) => {
             let imgPath = urun.img;
             if (isIndexPage) {
                 imgPath = imgPath.replace("../", "");
@@ -343,7 +344,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const urunAciklama = currentLang === "en" ? urun.aciklama_en : urun.aciklama_tr;
 
             const urunHTML = `
-                <div class="product-card" style="position: relative;">
+                <div class="product-card" data-urun-id="${index}" style="position: relative;">
                     <button class="fav-btn" style="position: absolute; top: 15px; right: 15px; background: #fff; border: none; font-size: 1.5rem; color: #ccc; cursor: pointer; border-radius: 50%; width: 35px; height: 35px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; z-index: 10;"><i class="fa-solid fa-heart"></i></button>
                     <img src="${imgPath}" alt="${urunAdi}">
                     <h3>${urunAdi}</h3>
@@ -366,14 +367,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!kategoriBulunduMu && anaSayfaGrid) {
             anaSayfaGrid.innerHTML = ""; 
-            tumUrunler.forEach(urun => {
+            tumUrunler.forEach((urun, index) => {
                 let imgPath = urun.img;
                 if (isIndexPage) imgPath = imgPath.replace("../", "");
                 const urunAdi = currentLang === "en" ? urun.ad_en : urun.ad_tr;
                 const urunAciklama = currentLang === "en" ? urun.aciklama_en : urun.aciklama_tr;
 
                 anaSayfaGrid.innerHTML += `
-                    <div class="product-card" style="position: relative;">
+                    <div class="product-card" data-urun-id="${index}" style="position: relative;">
                         <button class="fav-btn" style="position: absolute; top: 15px; right: 15px; background: #fff; border: none; font-size: 1.5rem; color: #ccc; cursor: pointer; border-radius: 50%; width: 35px; height: 35px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; z-index: 10;"><i class="fa-solid fa-heart"></i></button>
                         <img src="${imgPath}" alt="${urunAdi}">
                         <h3>${urunAdi}</h3>
@@ -388,63 +389,130 @@ document.addEventListener("DOMContentLoaded", () => {
 
     urunleriEkranaBas();
 
+    function syncFavUI() {
+        const favIds = (JSON.parse(localStorage.getItem("findikFavori")) || []).map(u => Number(u.id));
+        document.querySelectorAll(".product-card").forEach(card => {
+            const id = Number(card.getAttribute("data-urun-id"));
+            const btn = card.querySelector(".fav-btn i");
+            if (!btn) return;
+            if (favIds.includes(id)) {
+                btn.style.color = "#e74c3c";
+            } else {
+                btn.style.color = "#ccc";
+            }
+        });
+    }
+
+    syncFavUI();
+    window.addEventListener("pageshow", syncFavUI);
+
+    // ==========================
+    // FAVORİLER SAYFASI RENDER
+    // ==========================
+    function favorileriEkranaBas() {
+        const grid = document.getElementById("favori-grid");
+        if (!grid) return;
+
+        const favoriler = JSON.parse(localStorage.getItem("findikFavori")) || [];
+
+        grid.innerHTML = "";
+
+        if (favoriler.length === 0) {
+            grid.innerHTML = `<p>${translations[currentLang].empty_fav}</p>`;
+            return;
+        }
+
+        favoriler.forEach(urun => {
+            grid.innerHTML += `
+                <div class="product-card" data-urun-id="${urun.id}" style="position: relative;">
+                    
+                    <button class="fav-btn" style="position: absolute; top: 15px; right: 15px; background: #fff; border: none; font-size: 1.5rem; color: #e74c3c; cursor: pointer; border-radius: 50%; width: 35px; height: 35px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display:flex; align-items:center; justify-content:center; z-index:10;">
+                        <i class="fa-solid fa-heart"></i>
+                    </button>
+
+                    <img src="${urun.img}" style="width:100%; border-radius:10px;">
+
+                    <h3>${urun.ad}</h3>
+                    <p>${urun.aciklama}</p>
+
+                    <span class="price">${Number(urun.fiyat).toFixed(2)} ${paraBirimi}</span>
+
+                    <button class="add-to-cart-btn">
+                        ${translations[currentLang].add_to_cart_btn}
+                    </button>
+
+                </div>
+            `;
+        });
+    }
+
+    // Eğer favoriler sayfasındaysak çalıştır
+    if (document.getElementById("favori-grid")) {
+        favorileriEkranaBas();
+    }
+
     // ==========================================================================
     // 3. SEPET & FAVORİ BUTONLARINI DİNLEME ALANI
     // ==========================================================================
     let sepet = JSON.parse(localStorage.getItem("findikSepet")) || [];
     let favoriler = JSON.parse(localStorage.getItem("findikFavori")) || [];
 
-    const favButtons = document.querySelectorAll(".fav-btn");
-    favButtons.forEach(btn => {
-        const card = btn.closest(".product-card");
-        if(card) {
-            const cardName = card.querySelector("h3").innerText;
-            const cardDesc = card.querySelector("p").innerText;
-            if (favoriler.some(urun => urun.ad === cardName && urun.aciklama === cardDesc)) {
-                btn.style.color = "#e74c3c";
-            }
-        }
-
-        btn.addEventListener("click", (e) => {
-            const productCard = e.currentTarget.closest(".product-card");
-            const productName = productCard.querySelector("h3").innerText;
-            const productDesc = productCard.querySelector("p").innerText;
-            const productPriceText = productCard.querySelector(".price").innerText;
-            const productPrice = parseFloat(productPriceText.replace(` ${paraBirimi}`, ""));
-            const productImg = productCard.querySelector("img").src;
-
-            const urunVarMi = favoriler.find(urun => urun.ad === productName && urun.aciklama === productDesc);
-
-            if (urunVarMi) {
-                favoriler = favoriler.filter(urun => !(urun.ad === productName && urun.aciklama === productDesc));
-                e.currentTarget.style.color = "#ccc";
-                alert(productName + " (" + productDesc + ") " + translations[currentLang].alert_remove_fav);
-            } else {
-                favoriler.push({ ad: productName, aciklama: productDesc, fiyat: productPrice, img: productImg });
-                e.currentTarget.style.color = "#e74c3c";
-                alert(productName + " (" + productDesc + ") " + translations[currentLang].alert_add_fav);
-            }
-            
-            localStorage.setItem("findikFavori", JSON.stringify(favoriler));
-        });
-    });
-
-    const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
-    addToCartButtons.forEach(button => {
-        button.addEventListener("click", (event) => {
-            const productCard = event.target.closest(".product-card");
-            if(!productCard) return;
+    document.addEventListener("click", (e) => {
+        // FAVORİ BUTONU
+        const favBtn = e.target.closest(".fav-btn");
+        if (favBtn) {
+            const productCard = favBtn.closest(".product-card");
+            if (!productCard) return;
 
             const productName = productCard.querySelector("h3").innerText;
             const productDesc = productCard.querySelector("p").innerText;
             const priceElement = productCard.querySelector(".price");
             const productImg = productCard.querySelector("img").src;
-            
-            if(!priceElement) return;
+            const productId = Number(productCard.getAttribute("data-urun-id"));
 
             const productPriceText = priceElement.innerText;
             const productPrice = parseFloat(productPriceText.replace(` ${paraBirimi}`, ""));
-            const mevcutUrun = sepet.find(urun => urun.ad === productName && urun.adetEx === productDesc);
+
+            const urunVarMi = favoriler.find(u => Number(u.id) === productId);
+
+            if (urunVarMi) {
+                favoriler = favoriler.filter(u => Number(u.id) !== productId);
+                favBtn.style.color = "#ccc";
+                alert(productName + " (" + productDesc + ") " + translations[currentLang].alert_remove_fav);
+            } else {
+                favoriler.push({
+                    id: productId,
+                    ad: productName,
+                    aciklama: productDesc,
+                    fiyat: productPrice,
+                    img: productImg
+                });
+                favBtn.style.color = "#e74c3c";
+                alert(productName + " (" + productDesc + ") " + translations[currentLang].alert_add_fav);
+            }
+
+            localStorage.setItem("findikFavori", JSON.stringify(favoriler));
+            syncFavUI();
+            return;
+        }
+
+        // SEPET BUTONU
+        const cartBtn = e.target.closest(".add-to-cart-btn");
+        if (cartBtn) {
+            const productCard = cartBtn.closest(".product-card");
+            if (!productCard) return;
+
+            const productName = productCard.querySelector("h3").innerText;
+            const productDesc = productCard.querySelector("p").innerText;
+            const priceElement = productCard.querySelector(".price");
+            const productImg = productCard.querySelector("img").src;
+
+            if (!priceElement) return;
+
+            const productPriceText = priceElement.innerText;
+            const productPrice = parseFloat(productPriceText.replace(` ${paraBirimi}`, ""));
+
+            const mevcutUrun = sepet.find(u => u.ad === productName && u.adetEx === productDesc);
 
             if (mevcutUrun) {
                 mevcutUrun.adet += 1;
@@ -454,7 +522,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             localStorage.setItem("findikSepet", JSON.stringify(sepet));
             alert(productName + " (" + productDesc + ") " + translations[currentLang].alert_add_cart);
-        });
+        }
     });
 
     // ==========================================================================
