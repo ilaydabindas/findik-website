@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
         { kategoriId: "grid-kavrulmus-findik", ad: "Kavrulmuş Fındık", aciklama: "5 kg", fiyat: 3300.00, img: "../images/products/kavrulmus-findik-5.png" },
 
         // ÇİFTE KAVRULMUŞ FINDIK
-        { kategoriId: "grid-kavrulmus-findik", ad: "Çifte Kavrulmuş Fındık", aciklama: "500 gr", fiyat: 375.00, img: "../images/products/kavrulmus-findik-500.png" },
-        { kategoriId: "grid-kavrulmus-findik", ad: "Çifte Kavrulmuş Fındık", aciklama: "1 kg", fiyat: 700.00, img: "../images/products/kavrulmus-findik-1.png" },
-        { kategoriId: "grid-kavrulmus-findik", ad: "Çifte Kavrulmuş Fındık", aciklama: "2 kg", fiyat: 1350.00, img: "../images/products/kavrulmus-findik-2.png" },
-        { kategoriId: "grid-kavrulmus-findik", ad: "Çifte Kavrulmuş Fındık", aciklama: "5 kg", fiyat: 3300.00, img: "../images/products/kavrulmus-findik-5.png", enCokSatan: true },
+        { kategoriId: "grid-kavrulmus-findik", ad: "Çifte Kavrulmuş Fındık", aciklama: "500 gr", fiyat: 375.00, img: "../images/products/ckavrulmus-findik-500.png" },
+        { kategoriId: "grid-kavrulmus-findik", ad: "Çifte Kavrulmuş Fındık", aciklama: "1 kg", fiyat: 700.00, img: "../images/products/ckavrulmus-findik-1.png" },
+        { kategoriId: "grid-kavrulmus-findik", ad: "Çifte Kavrulmuş Fındık", aciklama: "2 kg", fiyat: 1350.00, img: "../images/products/ckavrulmus-findik-2.png" },
+        { kategoriId: "grid-kavrulmus-findik", ad: "Çifte Kavrulmuş Fındık", aciklama: "5 kg", fiyat: 3300.00, img: "../images/products/akavrulmus-findik-5.png", enCokSatan: true },
 
         // FINDIK EZMESİ / KREMASI
         { kategoriId: "grid-findik-ezmesi", ad: "Fındık Ezmesi", aciklama: "350 gr", fiyat: 250.00, img: "../images/products/findik-ezmesi-350.png" },
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (urunVarMi) {
                 favoriler = favoriler.filter(urun => !(urun.ad === productName && urun.aciklama === productDesc));
                 e.currentTarget.style.color = "#ccc";
-                alert(productName + " (" + productDesc + ") favorilerden cikarildi.");
+                alert(productName + " (" + productDesc + ") favorilerden çıkarıldı.");
             } else {
                 favoriler.push({ ad: productName, aciklama: productDesc, fiyat: productPrice, img: productImg });
                 e.currentTarget.style.color = "#e74c3c";
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (favGrid) {
         favGrid.innerHTML = "";
         if (favoriler.length === 0) {
-            favGrid.innerHTML = "<h3 style=\"grid-column: 1/-1; text-align:center; color: #7f8c8d; padding: 50px 0;\">Listenizde henuz favori urun bulunmuyor.</h3>";
+            favGrid.innerHTML = "<h3 style=\"grid-column: 1/-1; text-align:center; color: #7f8c8d; padding: 50px 0;\">Listenizde henüz favori ürün bulunmuyor.</h3>";
         } else {
             favoriler.forEach((urun, index) => {
                 const urunHTML = `
@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         sepet.push({ ad: productName, fiyat: productPrice, adet: 1, adetEx: productDesc, img: productImg });
                     }
                     localStorage.setItem("findikSepet", JSON.stringify(sepet));
-                    alert(productName + " basariyla sepete eklendi!");
+                    alert(productName + " başarıyla sepete eklendi!");
                 });
             });
         }
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             localStorage.setItem("findikSepet", JSON.stringify(sepet));
-            alert(productName + " (" + productDesc + ") basariyla sepete eklendi!");
+            alert(productName + " (" + productDesc + ") başarıyla sepete eklendi!");
         });
     });
 
@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let toplamFiyat = 0;
 
         if (sepet.length === 0) {
-            cartTableBody.innerHTML = "<tr><td colspan=\"4\" style=\"text-align:center;\">Sepetiniz su an bos.</td></tr>";
+            cartTableBody.innerHTML = "<tr><td colspan=\"4\" style=\"text-align:center;\">Sepetiniz şu an boş.</td></tr>";
             if (totalPriceElement) totalPriceElement.innerText = "Toplam Fiyat : 0 TL";
             return;
         }

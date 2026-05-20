@@ -1,8 +1,9 @@
 /* ==========================================================================
    1. GENEL AYARLAR
    ========================================================================== */
-   html {
-    scroll-behavior: smooth;
+  html {
+    overflow-y: scroll; /* Sayfa kısa bile olsa dikey kaydırma alanını sabit tutar */
+    scroll-behavior: smooth; /* (Kategorilere yumuşak inme kodumuz, aynı kalacak) */
 }
 * {
     margin: 0;
@@ -15,6 +16,13 @@ body {
     background-color: #f8f9fa;
     color: #333;
     line-height: 1.6;
+    /* FOOTER'I EN ALTA İTMEK İÇİN EKLENEN YENİ KODLAR: */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ekranın tam boyunu almasını sağlar */
+}
+main {
+    flex: 1;
 }
 
 /* ==========================================================================
@@ -24,9 +32,15 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 5%;
+    padding: 7px 5%; /* Hem üstü hem altı 5px yaparak tamamen daralttık */
     background-color: #ffffff;
     border-bottom: 1px solid #eaeaea;
+}
+
+/* Görselin altındaki görünmez harf kuyruğu boşluğunu siler */
+.logo img {
+    display: block;
+    margin:  auto;
 }
 
 .top-bar > * {
