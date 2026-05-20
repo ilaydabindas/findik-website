@@ -270,56 +270,56 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================================
     const tumUrunler = [
         // İÇ FINDIK
-        { kategoriId: "grid-ic-findik", ad_tr: "İç Fındık", ad_en: "Hazelnut Kernels", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat: 7, img: "../images/products/ic-findik-500.png", enCokSatan: true },
-        { kategoriId: "grid-ic-findik", ad_tr: "İç Fındık", ad_en: "Hazelnut Kernels", aciklama_tr: "1 kg", aciklama_en: "1 kg", fiyat: 13.00, img: "../images/products/ic-findik-1.png", enCokSatan: true },
-        { kategoriId: "grid-ic-findik", ad_tr: "İç Fındık", ad_en: "Hazelnut Kernels", aciklama_tr: "2 kg", aciklama_en: "2 kg", fiyat: 25.00, img: "../images/products/ic-findik-2.png" },
-        { kategoriId: "grid-ic-findik", ad_tr: "İç Fındık", ad_en: "Hazelnut Kernels", aciklama_tr: "5 kg", aciklama_en: "5 kg", fiyat: 66.00, img: "../images/products/ic-findik-5.png" },
+        { kategoriId: "grid-ic-findik", ad_tr: "İç Fındık", ad_en: "Hazelnut Kernels", aciklama_tr: "500 gr", aciklama_en: "500 g",fiyat_tr:325.00, fiyat_en: 7, img: "../images/products/ic-findik-500.png", enCokSatan: true },
+        { kategoriId: "grid-ic-findik", ad_tr: "İç Fındık", ad_en: "Hazelnut Kernels", aciklama_tr: "1 kg", aciklama_en: "1 kg",fiyat_tr:600.00, fiyat_en: 13.00, img: "../images/products/ic-findik-1.png", enCokSatan: true },
+        { kategoriId: "grid-ic-findik", ad_tr: "İç Fındık", ad_en: "Hazelnut Kernels", aciklama_tr: "2 kg", aciklama_en: "2 kg", fiyat_tr:1150.00, fiyat_en: 25.00, img: "../images/products/ic-findik-2.png" },
+        { kategoriId: "grid-ic-findik", ad_tr: "İç Fındık", ad_en: "Hazelnut Kernels", aciklama_tr: "5 kg", aciklama_en: "5 kg", fiyat_tr:3000.00, fiyat_en: 66.00, img: "../images/products/ic-findik-5.png" },
 
         // KABUKLU FINDIK
-        { kategoriId: "grid-kabuklu-findik", ad_tr: "Kabuklu Fındık", ad_en: "In-Shell Hazelnut", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat: 2.50, img: "../images/products/kabuklu-findik-500.png" },
-        { kategoriId: "grid-kabuklu-findik", ad_tr: "Kabuklu Fındık", ad_en: "In-Shell Hazelnut", aciklama_tr: "1 kg", aciklama_en: "1 kg", fiyat: 4.00, img: "../images/products/kabuklu-findik-1.png" },
-        { kategoriId: "grid-kabuklu-findik", ad_tr: "Kabuklu Fındık", ad_en: "In-Shell Hazelnut", aciklama_tr: "2 kg", aciklama_en: "2 kg", fiyat: 7.50, img: "../images/products/kabuklu-findik-2.png" },
-        { kategoriId: "grid-kabuklu-findik", ad_tr: "Kabuklu Fındık", ad_en: "In-Shell Hazelnut", aciklama_tr: "5 kg", aciklama_en: "5 kg", fiyat: 18.50, img: "../images/products/kabuklu-findik-5.png" },
+        { kategoriId: "grid-kabuklu-findik", ad_tr: "Kabuklu Fındık", ad_en: "In-Shell Hazelnut", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat_tr:95.00, fiyat_en: 2.50, img: "../images/products/kabuklu-findik-500.png" },
+        { kategoriId: "grid-kabuklu-findik", ad_tr: "Kabuklu Fındık", ad_en: "In-Shell Hazelnut", aciklama_tr: "1 kg", aciklama_en: "1 kg", fiyat_tr: 180.00, fiyat_en: 4.00, img: "../images/products/kabuklu-findik-1.png" },
+        { kategoriId: "grid-kabuklu-findik", ad_tr: "Kabuklu Fındık", ad_en: "In-Shell Hazelnut", aciklama_tr: "2 kg", aciklama_en: "2 kg", fiyat_tr:350.00, fiyat_en: 7.50, img: "../images/products/kabuklu-findik-2.png" },
+        { kategoriId: "grid-kabuklu-findik", ad_tr: "Kabuklu Fındık", ad_en: "In-Shell Hazelnut", aciklama_tr: "5 kg", aciklama_en: "5 kg", fiyat_tr: 850.00, fiyat_en: 18.50, img: "../images/products/kabuklu-findik-5.png" },
 
         // KAVRULMUŞ FINDIK
-        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Kavrulmuş Fındık", ad_en: "Roasted Hazelnuts", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat: 8.50, img: "../images/products/kavrulmus-findik-500.png" },
-        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Kavrulmuş Fındık", ad_en: "Roasted Hazelnuts", aciklama_tr: "1 kg", aciklama_en: "1 kg", fiyat: 15.50, img: "../images/products/kavrulmus-findik-1.png", enCokSatan: true },
-        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Kavrulmuş Fındık", ad_en: "Roasted Hazelnuts", aciklama_tr: "2 kg", aciklama_en: "2 kg", fiyat: 30.00, img: "../images/products/kavrulmus-findik-2.png", enCokSatan: true },
-        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Kavrulmuş Fındık", ad_en: "Roasted Hazelnuts", aciklama_tr: "5 kg", aciklama_en: "5 kg", fiyat: 72.50, img: "../images/products/kavrulmus-findik-5.png" },
+        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Kavrulmuş Fındık", ad_en: "Roasted Hazelnuts", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat_tr: 375.00,fiyat_en: 8.50, img: "../images/products/kavrulmus-findik-500.png" },
+        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Kavrulmuş Fındık", ad_en: "Roasted Hazelnuts", aciklama_tr: "1 kg", aciklama_en: "1 kg", fiyat_tr: 700.00, fiyat_en: 15.50, img: "../images/products/kavrulmus-findik-1.png", enCokSatan: true },
+        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Kavrulmuş Fındık", ad_en: "Roasted Hazelnuts", aciklama_tr: "2 kg", aciklama_en: "2 kg", fiyat_tr: 1350.00, fiyat_en: 30.00, img: "../images/products/kavrulmus-findik-2.png", enCokSatan: true },
+        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Kavrulmuş Fındık", ad_en: "Roasted Hazelnuts", aciklama_tr: "5 kg", aciklama_en: "5 kg", fiyat_tr: 3300.00, fiyat_en: 72.50, img: "../images/products/kavrulmus-findik-5.png" },
 
         // ÇİFTE KAVRULMUŞ FINDIK
-        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Çifte Kavrulmuş Fındık", ad_en: "Double-roasted Hazelnuts", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat: 8.50, img: "../images/products/ckavrulmus-findik-500.png" },
-        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Çifte Kavrulmuş Fındık", ad_en: "Double-roasted Hazelnuts", aciklama_tr: "1 kg", aciklama_en: "1 kg", fiyat: 15.50, img: "../images/products/ckavrulmus-findik-1.png" },
-        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Çifte Kavrulmuş Fındık", ad_en: "Double-roasted Hazelnuts", aciklama_tr: "2 kg", aciklama_en: "2 kg", fiyat: 30.00, img: "../images/products/ckavrulmus-findik-2.png" },
-        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Çifte Kavrulmuş Fındık", ad_en: "Double-roasted Hazelnuts", aciklama_tr: "5 kg", aciklama_en: "5 kg", fiyat: 72.50, img: "../images/products/ckavrulmus-findik-5.png", enCokSatan: true },
+        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Çifte Kavrulmuş Fındık", ad_en: "Double-roasted Hazelnuts", aciklama_tr: "500 gr", aciklama_en: "500 g",fiyat_tr: 375.00, fiyat_en: 8.50, img: "../images/products/ckavrulmus-findik-500.png" },
+        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Çifte Kavrulmuş Fındık", ad_en: "Double-roasted Hazelnuts", aciklama_tr: "1 kg", aciklama_en: "1 kg", fiyat_tr: 700.00, fiyat_en: 15.50, img: "../images/products/ckavrulmus-findik-1.png" },
+        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Çifte Kavrulmuş Fındık", ad_en: "Double-roasted Hazelnuts", aciklama_tr: "2 kg", aciklama_en: "2 kg", fiyat_tr: 1350.00, fiyat_en: 30.00, img: "../images/products/ckavrulmus-findik-2.png" },
+        { kategoriId: "grid-kavrulmus-findik", ad_tr: "Çifte Kavrulmuş Fındık", ad_en: "Double-roasted Hazelnuts", aciklama_tr: "5 kg", aciklama_en: "5 kg", fiyat_tr: 3300.00, fiyat_en: 72.50, img: "../images/products/ckavrulmus-findik-5.png", enCokSatan: true },
 
         // FINDIK EZMESİ / KREMASI
-        { kategoriId: "grid-findik-ezmesi", ad_tr: "Fındık Ezmesi", ad_en: "Hazelnut Paste", aciklama_tr: "350 gr", aciklama_en: "350 g", fiyat: 5.50, img: "../images/products/findik-ezmesi-350.png" },
-        { kategoriId: "grid-findik-ezmesi", ad_tr: "Fındık Ezmesi", ad_en: "Hazelnut Paste", aciklama_tr: "700 gr", aciklama_en: "700 g", fiyat: 9.00, img: "../images/products/findik-ezmesi-700.png", enCokSatan: true },
-        { kategoriId: "grid-findik-ezmesi", ad_tr: "Fındık Kreması", ad_en: "Hazelnut Cream", aciklama_tr: "350 gr", aciklama_en: "350 g", fiyat: 4.00, img: "../images/products/findik-kremasi-350.png", enCokSatan: true },
-        { kategoriId: "grid-findik-ezmesi", ad_tr: "Fındık Kreması", ad_en: "Hazelnut Cream", aciklama_tr: "700 gr", aciklama_en: "700 g", fiyat: 8.00, img: "../images/products/findik-kremasi-700.png" },
+        { kategoriId: "grid-findik-ezmesi", ad_tr: "Fındık Ezmesi", ad_en: "Hazelnut Paste", aciklama_tr: "350 gr", aciklama_en: "350 g",fiyat_tr: 250.00, fiyat_en: 5.50, img: "../images/products/findik-ezmesi-350.png" },
+        { kategoriId: "grid-findik-ezmesi", ad_tr: "Fındık Ezmesi", ad_en: "Hazelnut Paste", aciklama_tr: "700 gr", aciklama_en: "700 g", fiyat_tr: 400.00,fiyat_en: 9.00, img: "../images/products/findik-ezmesi-700.png", enCokSatan: true },
+        { kategoriId: "grid-findik-ezmesi", ad_tr: "Fındık Kreması", ad_en: "Hazelnut Cream", aciklama_tr: "350 gr", aciklama_en: "350 g", fiyat_tr: 200.00, fiyat_en: 4.00, img: "../images/products/findik-kremasi-350.png", enCokSatan: true },
+        { kategoriId: "grid-findik-ezmesi", ad_tr: "Fındık Kreması", ad_en: "Hazelnut Cream", aciklama_tr: "700 gr", aciklama_en: "700 g", fiyat_tr: 350.00, fiyat_en: 8.00, img: "../images/products/findik-kremasi-700.png" },
 
         // FINDIK UNU
-        { kategoriId: "grid-findik-unu", ad_tr: "Fındık Unu", ad_en: "Hazelnut Flour", aciklama_tr: "250 gr", aciklama_en: "250 g", fiyat: 4.50, img: "../images/products/findik-unu-250.png", enCokSatan: true },
-        { kategoriId: "grid-findik-unu", ad_tr: "Fındık Unu", ad_en: "Hazelnut Flour", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat: 8.00, img: "../images/products/findik-unu-500.png" },
-        { kategoriId: "grid-findik-unu", ad_tr: "Fındık Unu", ad_en: "Hazelnut Flour", aciklama_tr: "1 kg", aciklama_en: "1 kg", fiyat: 13.50, img: "../images/products/findik-unu-1.png" },
-        { kategoriId: "grid-findik-unu", ad_tr: "Fındık Unu", ad_en: "Hazelnut Flour", aciklama_tr: "2 kg", aciklama_en: "2 kg", fiyat: 22.00, img: "../images/products/findik-unu-2.png" },
+        { kategoriId: "grid-findik-unu", ad_tr: "Fındık Unu", ad_en: "Hazelnut Flour", aciklama_tr: "250 gr", aciklama_en: "250 g", fiyat_tr: 200.00,fiyat_en: 4.50, img: "../images/products/findik-unu-250.png", enCokSatan: true },
+        { kategoriId: "grid-findik-unu", ad_tr: "Fındık Unu", ad_en: "Hazelnut Flour", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat_tr: 350.00, fiyat_en: 8.00, img: "../images/products/findik-unu-500.png" },
+        { kategoriId: "grid-findik-unu", ad_tr: "Fındık Unu", ad_en: "Hazelnut Flour", aciklama_tr: "1 kg", aciklama_en: "1 kg", fiyat_tr: 600.00, fiyat_en: 13.50, img: "../images/products/findik-unu-1.png" },
+        { kategoriId: "grid-findik-unu", ad_tr: "Fındık Unu", ad_en: "Hazelnut Flour", aciklama_tr: "2 kg", aciklama_en: "2 kg", fiyat_tr: 1000.00, fiyat_en: 22.00, img: "../images/products/findik-unu-2.png" },
 
         // FINDIK YAĞI
-        { kategoriId: "grid-findik-yagi", ad_tr: "Fındık Yağı", ad_en: "Hazelnut Oil", aciklama_tr: "250 ml", aciklama_en: "250 ml", fiyat: 2.50, img: "../images/products/findik-yagi-250.png" },
-        { kategoriId: "grid-findik-yagi", ad_tr: "Fındık Yağı", ad_en: "Hazelnut Oil", aciklama_tr: "500 ml", aciklama_en: "500 ml", fiyat: 4.50, img: "../images/products/findik-yagi-500.png" },
-        { kategoriId: "grid-findik-yagi", ad_tr: "Fındık Yağı", ad_en: "Hazelnut Oil", aciklama_tr: "1 L", aciklama_en: "1 L", fiyat: 7.00, img: "../images/products/findik-yagi-1.png" },
-        { kategoriId: "grid-findik-yagi", ad_tr: "Fındık Yağı", ad_en: "Hazelnut Oil", aciklama_tr: "2 L", aciklama_en: "2 L", fiyat: 11.00, img: "../images/products/findik-yagi-2.png" },
-        { kategoriId: "grid-findik-yagi", ad_tr: "Fındık Yağı", ad_en: "Hazelnut Oil", aciklama_tr: "5 L", aciklama_en: "5 L", fiyat: 22.00, img: "../images/products/findik-yagi-5.png" },
+        { kategoriId: "grid-findik-yagi", ad_tr: "Fındık Yağı", ad_en: "Hazelnut Oil", aciklama_tr: "250 ml", aciklama_en: "250 ml",fiyat_tr: 100.00, fiyat_en: 2.50, img: "../images/products/findik-yagi-250.png" },
+        { kategoriId: "grid-findik-yagi", ad_tr: "Fındık Yağı", ad_en: "Hazelnut Oil", aciklama_tr: "500 ml", aciklama_en: "500 ml", fiyat_tr: 200.00, fiyat_en: 4.50, img: "../images/products/findik-yagi-500.png" },
+        { kategoriId: "grid-findik-yagi", ad_tr: "Fındık Yağı", ad_en: "Hazelnut Oil", aciklama_tr: "1 L", aciklama_en: "1 L", fiyat_tr: 300.00,fiyat_en: 7.00, img: "../images/products/findik-yagi-1.png" },
+        { kategoriId: "grid-findik-yagi", ad_tr: "Fındık Yağı", ad_en: "Hazelnut Oil", aciklama_tr: "2 L", aciklama_en: "2 L", fiyat_tr: 500.00, fiyat_en: 11.00, img: "../images/products/findik-yagi-2.png" },
+        { kategoriId: "grid-findik-yagi", ad_tr: "Fındık Yağı", ad_en: "Hazelnut Oil", aciklama_tr: "5 L", aciklama_en: "5 L", fiyat_tr: 1000.00, fiyat_en: 22.00, img: "../images/products/findik-yagi-5.png" },
 
         // FINDIKLI ÇİKOLATA / GOFRET
-        { kategoriId: "grid-findikli-cikolata", ad_tr: "Fındıklı Çikolata", ad_en: "Hazelnut Chocolate", aciklama_tr: "250 gr", aciklama_en: "250 g", fiyat: 4.50, img: "../images/products/findikli-cikolata-250.png" },
-        { kategoriId: "grid-findikli-cikolata", ad_tr: "Fındıklı Çikolata", ad_en: "Hazelnut Chocolate", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat: 9.00, img: "../images/products/findikli-cikolata-500.png", enCokSatan: true },
-        { kategoriId: "grid-findikli-cikolata", ad_tr: "Fındıklı Çikolata", ad_en: "Hazelnut Chocolate", aciklama_tr: "1 kg", aciklama_en: "1 kg", fiyat: 18.00, img: "../images/products/findikli-cikolata-1.png" },
-        { kategoriId: "grid-findikli-cikolata", ad_tr: "Fındıklı Gofret - Sütlü", ad_en: "Milk Chocolate", aciklama_tr: "30 gr", aciklama_en: "30 g", fiyat: 1.00, img: "../images/products/gofret-sutlu.png", enCokSatan: true },
-        { kategoriId: "grid-findikli-cikolata", ad_tr: "Fındıklı Gofret - Bitter", ad_en: "Dark Chocolate", aciklama_tr: "30 gr", aciklama_en: "30 g", fiyat: 1.00, img: "../images/products/gofret-bitter.png", enCokSatan: true },
-        { kategoriId: "grid-findikli-cikolata", ad_tr: "Fındıklı Gofret - Beyaz", ad_en: "White Chocolate", aciklama_tr: "30 gr", aciklama_en: "30 g", fiyat: 1.00, img: "../images/products/gofret-beyaz.png" },
-        { kategoriId: "grid-findikli-cikolata", ad_tr: "Fındıklı Çikolata Kare", ad_en: "Hazelnut Chocolate Bar", aciklama_tr: "60 gr", aciklama_en: "60 g", fiyat: 1.50, img: "../images/products/cikolata-kare.png", enCokSatan: true }
+        { kategoriId: "grid-findikli-cikolata", ad_tr: "Fındıklı Çikolata", ad_en: "Hazelnut Chocolate", aciklama_tr: "250 gr", aciklama_en: "250 g", fiyat_tr: 200.00, fiyat_en: 4.50, img: "../images/products/findikli-cikolata-250.png" },
+        { kategoriId: "grid-findikli-cikolata", ad_tr: "Fındıklı Çikolata", ad_en: "Hazelnut Chocolate", aciklama_tr: "500 gr", aciklama_en: "500 g", fiyat_tr: 400.00, fiyat_en: 9.00, img: "../images/products/findikli-cikolata-500.png", enCokSatan: true },
+        { kategoriId: "grid-findikli-cikolata", ad_tr: "Fındıklı Çikolata", ad_en: "Hazelnut Chocolate", aciklama_tr: "1 kg", aciklama_en: "1 kg", fiyat_tr: 800.00, fiyat_en: 18.00, img: "../images/products/findikli-cikolata-1.png" },
+        { kategoriId: "grid-findikli-cikolata", ad_tr: "Fındıklı Gofret - Sütlü", ad_en: "Milk Chocolate", aciklama_tr: "30 gr", aciklama_en: "30 g", fiyat_tr: 40.00, fiyat_en: 1.00, img: "../images/products/gofret-sutlu.png", enCokSatan: true },
+        { kategoriId: "grid-findikli-cikolata", ad_tr: "Fındıklı Gofret - Bitter", ad_en: "Dark Chocolate", aciklama_tr: "30 gr", aciklama_en: "30 g", fiyat_tr: 40.00, fiyat_en: 1.00, img: "../images/products/gofret-bitter.png", enCokSatan: true },
+        { kategoriId: "grid-findikli-cikolata", ad_tr: "Fındıklı Gofret - Beyaz", ad_en: "White Chocolate", aciklama_tr: "30 gr", aciklama_en: "30 g", fiyat_tr: 40.00, fiyat_en: 1.00, img: "../images/products/gofret-beyaz.png" },
+        { kategoriId: "grid-findikli-cikolata", ad_tr: "Fındıklı Çikolata Kare", ad_en: "Hazelnut Chocolate Bar", aciklama_tr: "60 gr", aciklama_en: "60 g", fiyat_tr: 60.00, fiyat_en: 1.50, img: "../images/products/cikolata-kare.png", enCokSatan: true }
     ];
 
     // ==========================================================================
@@ -348,7 +348,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <img src="${imgPath}" alt="${urunAdi}">
                     <h3>${urunAdi}</h3>
                     <p>${urunAciklama}</p>
-                    <span class="price">${urun.fiyat.toFixed(2)} ${paraBirimi}</span>
+                    <span class="price">${(urun.fiyat ?? (currentLang === "en" ? urun.fiyat_en : urun.fiyat_tr)).toFixed(2)} ${paraBirimi}</span>
                     <button class="add-to-cart-btn">${butonMetni}</button>
                 </div>
             `;
@@ -378,7 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <img src="${imgPath}" alt="${urunAdi}">
                         <h3>${urunAdi}</h3>
                         <p>${urunAciklama}</p>
-                        <span class="price">${urun.fiyat.toFixed(2)} ${paraBirimi}</span>
+                        <span class="price">${(urun.fiyat ?? (currentLang === "en" ? urun.fiyat_en : urun.fiyat_tr)).toFixed(2)} ${paraBirimi}</span>
                         <button class="add-to-cart-btn">${butonMetni}</button>
                     </div>
                 `;
