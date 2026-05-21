@@ -165,7 +165,7 @@ const translations = {
         rec_kurabiye_info: "Easy • 25 min",
         rec_brownie_title: "Hazelnut Brownie",
         rec_brownie_info: "Medium • 40 min",
-        rec_sutlu_title: "Hazelnut Paste Milk Pudding",
+        rec_sutlu_title: "Hazelnut Pudding",
         rec_sutlu_info: "Easy • 30 min",
         rec_baklava_title: "Hazelnut Baklava Roll",
         rec_baklava_info: "Medium • 60 min",
@@ -187,7 +187,7 @@ const translations = {
         q5: "A different product was sent instead of the one I ordered, what should I do?",
         a5: "If the product specified in the invoice and the product inside the cargo package are different, you must contact us within 14 days from the delivery date.",
         q6: "How can I submit my requests and questions regarding a product or order?",
-        a6: "You can send your questions and opinions about your product or order by sending an e-mail to bindasfindik@gmail.com or via WhatsApp at our phone number 0543 746 39 22.",
+        a6: "You can send your questions and opinions about your product or order by sending an e-mail to bindasfindik@gmail.com or via WhatsApp at our phone number +90 0543 746 39 22.",
         q7: "Can I change the delivery address or recipient name of my order?",
         a7: "If your order has not been delivered to the cargo company, the delivery address or recipient name can be changed. However, no changes can be made after the order is delivered to the cargo company.",
         get q8() { return this._q8; },
@@ -229,7 +229,7 @@ const translations = {
         link_login: "Login here",
 
         btn_login: "Sign In",
-        ph_email: "Your email address",
+        ph_email: "example@mail.com",
         go_register_page: "Go to Register Page",
 
         // FAVORİLER SAYFASI (YENİ EKLENENLER)
@@ -266,6 +266,16 @@ document.addEventListener("DOMContentLoaded", () => {
             element.setAttribute("placeholder", translations[currentLang][placeholderKey]);
         }
     });
+
+    // CONTACT PHONE LANGUAGE FIX
+    const contactPhoneEl = document.getElementById("contact-phone");
+    if (contactPhoneEl) {
+        if (currentLang === "en") {
+            contactPhoneEl.innerText = "+90 543 746 39 22";
+        } else {
+            contactPhoneEl.innerText = "0543 746 39 22";
+        }
+    }
 
     // ==========================================================================
     // 1. DİNAMİK ÜRÜN VERİTABANI (KATALOG - ÇOK DİLLİ)
@@ -474,7 +484,21 @@ document.addEventListener("DOMContentLoaded", () => {
             if (urunVarMi) {
                 favoriler = favoriler.filter(u => Number(u.id) !== productId);
                 favBtn.style.color = "#ccc";
+
+                localStorage.setItem("findikFavori", JSON.stringify(favoriler));
+
                 alert(productName + " (" + productDesc + ") " + translations[currentLang].alert_remove_fav);
+
+                // instantly update heart icons everywhere
+                syncFavUI();
+
+                // if we are on favorites page, re-render immediately
+                const favGrid = document.getElementById("favori-grid");
+                if (favGrid) {
+                    favorileriEkranaBas();
+                }
+
+                return;
             } else {
                 favoriler.push({
                     id: productId,
