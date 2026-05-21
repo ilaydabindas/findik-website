@@ -349,7 +349,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <img src="${imgPath}" alt="${urunAdi}">
                     <h3>${urunAdi}</h3>
                     <p>${urunAciklama}</p>
-                    <span class="price">${(urun.fiyat ?? (currentLang === "en" ? urun.fiyat_en : urun.fiyat_tr)).toFixed(2)} ${paraBirimi}</span>
+                    <span class="price">${(currentLang === "en" ? urun.fiyat_en : urun.fiyat_tr).toFixed(2)} ${paraBirimi}</span>
                     <button class="add-to-cart-btn">${butonMetni}</button>
                 </div>
             `;
@@ -379,7 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <img src="${imgPath}" alt="${urunAdi}">
                         <h3>${urunAdi}</h3>
                         <p>${urunAciklama}</p>
-                        <span class="price">${(urun.fiyat ?? (currentLang === "en" ? urun.fiyat_en : urun.fiyat_tr)).toFixed(2)} ${paraBirimi}</span>
+                        <span class="price">${(currentLang === "en" ? urun.fiyat_en : urun.fiyat_tr).toFixed(2)} ${paraBirimi}</span>
                         <button class="add-to-cart-btn">${butonMetni}</button>
                     </div>
                 `;
@@ -432,10 +432,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <img src="${urun.img}" style="width:100%; border-radius:10px;">
 
-                    <h3>${urun.ad}</h3>
-                    <p>${urun.aciklama}</p>
+                    <h3>${currentLang === "en" ? urun.ad_en : urun.ad_tr}</h3>
+                    <p>${currentLang === "en" ? urun.aciklama_en : urun.aciklama_tr}</p>
 
-                    <span class="price">${Number(urun.fiyat).toFixed(2)} ${paraBirimi}</span>
+                    <span class="price">${(currentLang === "en" ? urun.fiyat_en : urun.fiyat_tr).toFixed(2)} ${paraBirimi}</span>
 
                     <button class="add-to-cart-btn">
                         ${translations[currentLang].add_to_cart_btn}
@@ -464,16 +464,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const productCard = favBtn.closest(".product-card");
             if (!productCard) return;
 
-            const productName = productCard.querySelector("h3").innerText;
-            const productDesc = productCard.querySelector("p").innerText;
-            const priceElement = productCard.querySelector(".price");
             const productImg = productCard.querySelector("img").src;
             const productId = Number(productCard.getAttribute("data-urun-id"));
-
-            const productPriceText = priceElement.innerText;
-            const productPrice = parseFloat(productPriceText.replace(` ${paraBirimi}`, ""));
-
             const urunVarMi = favoriler.find(u => Number(u.id) === productId);
+            const urun = tumUrunler[productId];
+            const productName = currentLang === "en" ? urun.ad_en : urun.ad_tr;
+            const productDesc = currentLang === "en" ? urun.aciklama_en : urun.aciklama_tr;
 
             if (urunVarMi) {
                 favoriler = favoriler.filter(u => Number(u.id) !== productId);
@@ -482,9 +478,12 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 favoriler.push({
                     id: productId,
-                    ad: productName,
-                    aciklama: productDesc,
-                    fiyat: productPrice,
+                    ad_tr: tumUrunler[productId].ad_tr,
+                    ad_en: tumUrunler[productId].ad_en,
+                    aciklama_tr: tumUrunler[productId].aciklama_tr,
+                    aciklama_en: tumUrunler[productId].aciklama_en,
+                    fiyat_tr: tumUrunler[productId].fiyat_tr,
+                    fiyat_en: tumUrunler[productId].fiyat_en,
                     img: productImg
                 });
                 favBtn.style.color = "#e74c3c";
@@ -502,22 +501,36 @@ document.addEventListener("DOMContentLoaded", () => {
             const productCard = cartBtn.closest(".product-card");
             if (!productCard) return;
 
-            const productName = productCard.querySelector("h3").innerText;
-            const productDesc = productCard.querySelector("p").innerText;
-            const priceElement = productCard.querySelector(".price");
             const productImg = productCard.querySelector("img").src;
+            const productId = Number(productCard.getAttribute("data-urun-id"));
+            const urun = tumUrunler[productId];
+            const productName = currentLang === "en" ? urun.ad_en : urun.ad_tr;
+            const productDesc = currentLang === "en" ? urun.aciklama_en : urun.aciklama_tr;
 
-            if (!priceElement) return;
+            const productPrice = currentLang === "en"
+                ? urun.fiyat_en
+                : urun.fiyat_tr;
 
-            const productPriceText = priceElement.innerText;
-            const productPrice = parseFloat(productPriceText.replace(` ${paraBirimi}`, ""));
-
-            const mevcutUrun = sepet.find(u => u.ad === productName && u.adetEx === productDesc);
+            // Find if the product already exists in cart (by id and language-specific description)
+            const mevcutUrun = sepet.find(u =>
+                (currentLang === "en"
+                    ? u.ad_en === urun.ad_en && u.adetEx_en === urun.aciklama_en
+                    : u.ad_tr === urun.ad_tr && u.adetEx_tr === urun.aciklama_tr)
+            );
 
             if (mevcutUrun) {
                 mevcutUrun.adet += 1;
             } else {
-                sepet.push({ ad: productName, fiyat: productPrice, adet: 1, adetEx: productDesc, img: productImg });
+                sepet.push({
+                    ad_tr: urun.ad_tr,
+                    ad_en: urun.ad_en,
+                    fiyat_tr: urun.fiyat_tr,
+                    fiyat_en: urun.fiyat_en,
+                    adet: 1,
+                    adetEx_tr: urun.aciklama_tr,
+                    adetEx_en: urun.aciklama_en,
+                    img: productImg
+                });
             }
 
             localStorage.setItem("findikSepet", JSON.stringify(sepet));
@@ -546,20 +559,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         sepet.forEach((urun, index) => {
-            const araToplam = urun.fiyat * urun.adet;
+            const urunAdi = currentLang === "en" ? urun.ad_en : urun.ad_tr;
+            const urunAciklama = currentLang === "en" ? urun.adetEx_en : urun.adetEx_tr;
+            const urunFiyati = currentLang === "en" ? urun.fiyat_en : urun.fiyat_tr;
+            const araToplam = urunFiyati * urun.adet;
             toplamFiyat += araToplam;
             
             const imgHTML = urun.img ? 
-                `<img src="${urun.img}" alt="${urun.ad}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; border: 1px solid #eaeaea;">` : 
+                `<img src="${urun.img}" alt="${urunAdi}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; border: 1px solid #eaeaea;">` : 
                 `<div class="img-placeholder" style="width: 50px; height: 50px; background-color: #eaeaea; border-radius: 5px; border: 1px solid #ccc;"></div>`;
 
             const tr = document.createElement("tr");
             tr.innerHTML = `
                 <td class="product-info">
                     ${imgHTML}
-                    <span>${urun.ad} (${urun.adetEx || ''})</span>
+                    <span>${urunAdi} (${urunAciklama || ''})</span>
                 </td>
-                <td>${urun.fiyat.toFixed(2)} ${paraBirimi}</td>
+                <td>${urunFiyati.toFixed(2)} ${paraBirimi}</td>
                 <td>
                     <div class="quantity-control">
                         <button class="qty-btn azalt" data-index="${index}">-</button>
@@ -571,7 +587,13 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             cartTableBody.appendChild(tr);
         });
-        if (totalPriceElement) totalPriceElement.innerText = `${translations[currentLang].total_price_label}${toplamFiyat.toFixed(2)} ${paraBirimi}`;
+        // Show total price in cart-total element if exists, otherwise fallback to .total-price
+        const totalElement = document.getElementById("cart-total");
+        if (totalElement) {
+            totalElement.innerText = `${toplamFiyat.toFixed(2)} ${paraBirimi}`;
+        } else if (totalPriceElement) {
+            totalPriceElement.innerText = `${translations[currentLang].total_price_label}${toplamFiyat.toFixed(2)} ${paraBirimi}`;
+        }
         sepetButonlariniDinle();
     }
 
