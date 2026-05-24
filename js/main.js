@@ -1,6 +1,8 @@
+
 // ==========================================================================
 // A. GLOBAL SÖZLÜK (SABİT HTML METİNLERİ İÇİN)
 // ==========================================================================
+// translations adındaki objectimizin içinde iki tane tr ve eng adında key tanımlıyoruz
 const translations = {
     tr: {
         site_title: "Bindaş Fındık | Anasayfa",
@@ -244,6 +246,12 @@ function getActiveLang() {
     return navigator.language.startsWith("en") ? "en" : "tr";
 }
 
+// --------------------------------------------------------------------------
+// SAYFA YÜKLENDIĞINDE ÇALIŞACAK ANA KOD BLOĞU
+// --------------------------------------------------------------------------
+// "DOMContentLoaded" eventi: HTML sayfası tamamen yüklendiğinde tetiklenir.
+// İçindeki tüm kod yalnızca sayfa hazır olduğunda çalışır.
+// Bu sayede henüz var olmayan HTML elementlerine erişmeye çalışma hatası önlenir.
 document.addEventListener("DOMContentLoaded", () => {
     const currentLang = getActiveLang();
     window.currentLang = currentLang;
@@ -251,7 +259,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Sayfa açılır açılmaz HTML dil etiketini ve statik metinleri giydiriyoruz
     document.documentElement.lang = currentLang;
-    const elements = document.querySelectorAll("[data-i18n]");
+    // Statik metinleri çevirmek için
+    // HTML içinde data-i18n attribute'u taşıyan tüm elementleri seçiyoruz
+    const elements = document.querySelectorAll("[data-i18n]");// querySelectorAll: CSS seçicileri kullanarak birden fazla elementi seçmeye yarar. data-i18n attribute'una sahip tüm elementleri seçer.
     elements.forEach(element => {
         const translationKey = element.getAttribute("data-i18n");
         if (translations[currentLang] && translations[currentLang][translationKey]) {
@@ -259,15 +269,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Placeholder (gri ipucu metni) = input, textarea gibi elementlerin içine yazılan ve kullanıcı yazmaya başladığında kaybolan metinlerdir. Bunları çevirmek için özel bir işlem yapmamız gerekiyor çünkü bunlar textContent değil, placeholder attribute'u içinde saklanır.
     const placeholderElements = document.querySelectorAll("[data-i18n-placeholder]");
     placeholderElements.forEach(element => {
         const placeholderKey = element.getAttribute("data-i18n-placeholder");
         if (translations[currentLang] && translations[currentLang][placeholderKey]) {
+            // textContent yerine placeholder attribute'unun özelliğini değiştirerekgüncelliyoruz
             element.setAttribute("placeholder", translations[currentLang][placeholderKey]);
         }
     });
 
     // CONTACT PHONE LANGUAGE FIX
+    // getetElementById ile contact-phone id'sine sahip elementi seçiyoruz
     const contactPhoneEl = document.getElementById("contact-phone");
     if (contactPhoneEl) {
         if (currentLang === "en") {
@@ -280,6 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================================
     // 1. DİNAMİK ÜRÜN VERİTABANI (KATALOG - ÇOK DİLLİ)
     // ==========================================================================
+    // tumUrunler adında bir array oluşturuyoruz ve içine ürünlerimizi obje formatında ekliyoruz. Her ürünün hangi kategoriye ait olduğunu belirtmek için kategoriId kullanıyoruz. Bu id'ler HTML'deki grid elementlerinin id'leriyle eşleşecek şekilde düzenlenmiştir. Böylece ürünleri doğru kategorilere yerleştirebileceğiz.
     const tumUrunler = [
         // İÇ FINDIK
         { kategoriId: "grid-ic-findik", ad_tr: "İç Fındık", ad_en: "Hazelnut Kernels", aciklama_tr: "500 gr", aciklama_en: "500 g",fiyat_tr:325.00, fiyat_en: 7, img: "../images/products/ic-findik-500.png", enCokSatan: true },
@@ -338,12 +352,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. ÜRÜNLERİ OTOMATİK OLARAK HTML İÇİNE YAZDIRAN KOD
     // ==========================================================================
     function urunleriEkranaBas() {
+        // hangi sayfada olduğumuzu tespit ediyoruz.
+        // pathname, URL'nin domain kısmından sonraki yolu verir. Örneğin, "http://example.com/index.html" için pathname "/index.html" olur. Eğer URL "http://example.com/" şeklindeyse pathname "/" olur.
+        // endsWith, bir string'in belirli bir alt string ile bitip bitmediğini kontrol eder. Örneğin, "index.html".endsWith("index.html") true döner, "index.html".endsWith("/") false döner, "/" .endsWith("/") true döner.
         const isIndexPage = window.location.pathname.endsWith("index.html") || window.location.pathname.endsWith("/");
         const butonMetni = translations[currentLang].add_to_cart_btn;
 
         const anaSayfaGrid = document.getElementById("grid-best-sellers");
         let kategoriBulunduMu = false;
 
+        // tumUrunler array'ini döngüye alarak her bir ürünü HTML formatında oluşturup ilgili kategori kutusuna ekliyoruz. Eğer ürünün kategorisi bulunamazsa ve ürün en çok satanlar arasında ise, ana sayfa grid'ine ekliyoruz.
         tumUrunler.forEach((urun, index) => {
             let imgPath = urun.img;
             if (isIndexPage) {
@@ -352,7 +370,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const urunAdi = currentLang === "en" ? urun.ad_en : urun.ad_tr;
             const urunAciklama = currentLang === "en" ? urun.aciklama_en : urun.aciklama_tr;
-
+             // Template literal (şablon ifadesi): Backtick `` ile yazılır.
+            // İçine ${...} ile JavaScript değişkenlerini gömeriz.
+            // Burada bir ürün kartının HTML kodunu oluşturuyoruz.
             const urunHTML = `
                 <div class="product-card" data-urun-id="${index}" style="position: relative;">
                     <button class="fav-btn" style="position: absolute; top: 15px; right: 15px; background: #fff; border: none; font-size: 1.5rem; color: #ccc; cursor: pointer; border-radius: 50%; width: 35px; height: 35px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; z-index: 10;"><i class="fa-solid fa-heart"></i></button>
@@ -366,6 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const kategoriKutusu = document.getElementById(urun.kategoriId);
             if (kategoriKutusu) {
+                // innerHTML +=, mevcut HTML içeriğini koruyarak yeni içeriği ekler. Eğer sadece innerHTML = kullanırsak, o zaman mevcut içerik silinir ve yerine yeni içerik gelir. Bu yüzden += kullanarak her ürünü sırayla ekliyoruz.
                 kategoriKutusu.innerHTML += urunHTML;
                 kategoriBulunduMu = true;
             }
@@ -374,10 +395,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 anaSayfaGrid.innerHTML += urunHTML;
             }
         });
-
+        // Hiç kategori bulunamadıysa (ürünler sayfasında değil ama grid var)
+        // ana sayfaya tüm ürünleri göster (fallback / yedek durum) 
         if (!kategoriBulunduMu && anaSayfaGrid) {
-            anaSayfaGrid.innerHTML = ""; 
+            anaSayfaGrid.innerHTML = ""; // Önce grid'i temizliyoruz
             tumUrunler.forEach((urun, index) => {
+                // Tüm ürünler için aynı işlemi yapıyoruz ama kategori kontrolü yapmadan direkt ekliyoruz
                 let imgPath = urun.img;
                 if (isIndexPage) imgPath = imgPath.replace("../", "");
                 const urunAdi = currentLang === "en" ? urun.ad_en : urun.ad_tr;
@@ -398,7 +421,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     urunleriEkranaBas();
-
+    // --------------------------------------------------------------------------
+    // syncFavUI() — Kalp ikonlarını favorilere göre renklendir
+    // --------------------------------------------------------------------------
+    // Bu fonksiyon her çalıştığında localStorage'daki favori listesini okur ve
+    // favoride olan ürünlerin kalbini kırmızı, olmayanları gri yapar.
     function syncFavUI() {
         const favIds = (JSON.parse(localStorage.getItem("findikFavori")) || []).map(u => Number(u.id));
         document.querySelectorAll(".product-card").forEach(card => {
@@ -413,7 +440,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    syncFavUI();
+    syncFavUI(); // sayfa ilk yüklendiğinde çalıştır
+
+    // pageshow eventi: Sayfaya geri dönüldüğünde de tetiklenir (tarayıcı cache'inden).
+    // Böylece başka sayfada favori değişikliği yapılsa, bu sayfaya dönünce güncellenir.
     window.addEventListener("pageshow", syncFavUI);
 
     // ==========================
@@ -421,8 +451,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================
     function favorileriEkranaBas() {
         const grid = document.getElementById("favori-grid");
-        if (!grid) return;
+        if (!grid) return; // Bu id yoksa (favoriler sayfasında değilsek) çık
 
+        // localStorage'dan favori ürünleri alıyoruz. Eğer hiç favori yoksa boş bir array döner.
         const favoriler = JSON.parse(localStorage.getItem("findikFavori")) || [];
 
         grid.innerHTML = "";
@@ -464,26 +495,45 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================================
     // 3. SEPET & FAVORİ BUTONLARINI DİNLEME ALANI
     // ==========================================================================
+
+    // localStorage'dan sepet ve favori verilerini alıyoruz. Eğer hiç veri yoksa boş array olarak başlatıyoruz. Böylece kodun geri kalanında sepet ve favoriler değişkenlerini güvenle kullanabiliriz.
     let sepet = JSON.parse(localStorage.getItem("findikSepet")) || [];
     let favoriler = JSON.parse(localStorage.getItem("findikFavori")) || [];
 
-    document.addEventListener("click", (e) => {
+    // Event Delegation (Olay Devretme) tekniği:
+    // Her butona ayrı ayrı listener eklemek yerine tüm tıklamaları document üzerinden yakalarız.
+    // Bu özellikle dinamik olarak oluşturulan (innerHTML ile eklenen) butonlar için gereklidir.
+
+    document.addEventListener("click", (e) => { 
         // FAVORİ BUTONU
+        // e.target: Tıklanan en içteki element
+        // .closest(".fav-btn"): Tıklanan ya da üst elementlerden .fav-btn olan varsa döndür
+        // Bu sayede ikon (<i>) ya da butonun kendisine tıklanmış olması fark etmez
         const favBtn = e.target.closest(".fav-btn");
         if (favBtn) {
+            // Butona en yakın .product-card elementini bul
             const productCard = favBtn.closest(".product-card");
             if (!productCard) return;
 
             const productImg = productCard.querySelector("img").src;
             const productId = Number(productCard.getAttribute("data-urun-id"));
+
+            // Bu ürün zaten favorilerde var mı? .find() ile arıyoruz.
+            // .find(): Dizide koşula uyan ilk elemanı döndürür, yoksa undefined döndürür
             const urunVarMi = favoriler.find(u => Number(u.id) === productId);
             const urun = tumUrunler[productId];
             const productName = currentLang === "en" ? urun.ad_en : urun.ad_tr;
             const productDesc = currentLang === "en" ? urun.aciklama_en : urun.aciklama_tr;
 
             if (urunVarMi) {
+                // ---- Favoriden ÇIKAR ----
+                // .filter(): Koşula uymayan elemanları atarak yeni bir dizi döndürür
+                // Yani: id eşleşmeyenleri tut → bu ürünü çıkar
                 favoriler = favoriler.filter(u => Number(u.id) !== productId);
                 favBtn.style.color = "#ccc";
+
+                // Güncel listeyi localStorage'a kaydet
+                // JSON.stringify(): JavaScript objesini JSON string'ine çevirir. localStorage sadece string saklayabildiği için bu adım gereklidir.
 
                 localStorage.setItem("findikFavori", JSON.stringify(favoriler));
 
@@ -492,7 +542,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // instantly update heart icons everywhere
                 syncFavUI();
 
-                // if we are on favorites page, re-render immediately
+                // Favoriler sayfasındaysak listeyi tekrar render et
                 const favGrid = document.getElementById("favori-grid");
                 if (favGrid) {
                     favorileriEkranaBas();
@@ -500,7 +550,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 return;
             } else {
-                favoriler.push({
+                favoriler.push({ // .push(): Diziye yeni eleman ekler
                     id: productId,
                     ad_tr: tumUrunler[productId].ad_tr,
                     ad_en: tumUrunler[productId].ad_en,
@@ -534,7 +584,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const productPrice = currentLang === "en"
                 ? urun.fiyat_en
                 : urun.fiyat_tr;
-
+            // urun sepette zaten var mı kontrol et
             // Find if the product already exists in cart (by id and language-specific description)
             const mevcutUrun = sepet.find(u =>
                 (currentLang === "en"
@@ -543,14 +593,14 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
             if (mevcutUrun) {
-                mevcutUrun.adet += 1;
+                mevcutUrun.adet += 1; // Urun zaten varsa sadece adedini 1 artır
             } else {
-                sepet.push({
+                sepet.push({ // Urun yoksa sepete yeni bir ürün olarak ekle
                     ad_tr: urun.ad_tr,
                     ad_en: urun.ad_en,
                     fiyat_tr: urun.fiyat_tr,
                     fiyat_en: urun.fiyat_en,
-                    adet: 1,
+                    adet: 1,               // ilk eklenmede adet 1 olur
                     adetEx_tr: urun.aciklama_tr,
                     adetEx_en: urun.aciklama_en,
                     img: productImg
@@ -565,35 +615,43 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================================
     // 4. SEPET SAYFASI YAZDIRMA İŞLEMLERİ
     // ==========================================================================
+    // Sepet tablosunuun <tbody> elementini ve toplam fiyat göstermek için .total-price elementini seçiyoruz.
     const cartTableBody = document.querySelector(".cart-table tbody");
     const totalPriceElement = document.querySelector(".total-price");
 
+    // sepet tablosu bu sayfada varsa sepeti çiz
     if (cartTableBody) {
         sepetiEkranaYazdir();
     }
 
     function sepetiEkranaYazdir() {
-        cartTableBody.innerHTML = "";
-        let toplamFiyat = 0;
-
+        cartTableBody.innerHTML = ""; // Tabloyu temizle
+        let toplamFiyat = 0;          // Toplam fiyatı sıfırdan hesaplayacağız
+       
+        // sepet boşsa bilgi mesajı gönder
         if (sepet.length === 0) {
+            // colspan="4": Bu hücre 4 sütunu kapsıyor (tablo sütun sayısına eşit)
             cartTableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">${translations[currentLang].empty_cart}</td></tr>`;
             if (totalPriceElement) totalPriceElement.innerText = translations[currentLang].total_price_label + "0 " + paraBirimi;
             return;
         }
-
+        // her sepet ürünü için bir tablo satırı (<tr>) oluştur
         sepet.forEach((urun, index) => {
             const urunAdi = currentLang === "en" ? urun.ad_en : urun.ad_tr;
             const urunAciklama = currentLang === "en" ? urun.adetEx_en : urun.adetEx_tr;
             const urunFiyati = currentLang === "en" ? urun.fiyat_en : urun.fiyat_tr;
+
+            // aratoplam ürünün toplam maliyeti
             const araToplam = urunFiyati * urun.adet;
             toplamFiyat += araToplam;
             
+            // Resim HTML'i: Resim varsa <img>, yoksa boş bir kutu göster
             const imgHTML = urun.img ? 
                 `<img src="${urun.img}" alt="${urunAdi}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; border: 1px solid #eaeaea;">` : 
                 `<div class="img-placeholder" style="width: 50px; height: 50px; background-color: #eaeaea; border-radius: 5px; border: 1px solid #ccc;"></div>`;
 
-            const tr = document.createElement("tr");
+            const tr = document.createElement("tr"); // createElement: bellekte yeni bir <tr> HTML elementi oluştur
+
             tr.innerHTML = `
                 <td class="product-info">
                     ${imgHTML}
@@ -609,7 +667,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 </td>
                 <td><button class="remove-btn" data-index="${index}" title="Sepetten Cikar"><i class="fa-solid fa-trash"></i></button></td>
             `;
-            cartTableBody.appendChild(tr);
+
+            // oluşturulan satırı tabloya ekle
+            cartTableBody.appendChild(tr); // appendChild: Bir elementi başka bir elementin içine son çocuk olarak ekler
         });
         // Show total price in cart-total element if exists, otherwise fallback to .total-price
         const totalElement = document.getElementById("cart-total");
@@ -618,26 +678,33 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (totalPriceElement) {
             totalPriceElement.innerText = `${translations[currentLang].total_price_label}${toplamFiyat.toFixed(2)} ${paraBirimi}`;
         }
+
+        // Tablo yeniden çizildiğinde butonlara yeniden listener ekle
         sepetButonlariniDinle();
     }
 
     function sepetButonlariniDinle() {
         document.querySelectorAll(".remove-btn").forEach(btn => {
             btn.addEventListener("click", (e) => {
+                // e.currentTarget: Listener'ın eklendiği element (e.target değil!)
                 const index = e.currentTarget.getAttribute("data-index");
-                sepet.splice(index, 1);
+                sepet.splice(index, 1);// index kutusundan 1 eleman siler
                 localStorage.setItem("findikSepet", JSON.stringify(sepet));
-                sepetiEkranaYazdir();
+                sepetiEkranaYazdir(); // tabloyu yeniden çiz
             });
         });
+
+        // + (artır) butonları
         document.querySelectorAll(".artir").forEach(btn => {
             btn.addEventListener("click", (e) => {
                 const index = e.target.getAttribute("data-index");
-                sepet[index].adet += 1;
+                sepet[index].adet += 1;// adedi 1 artır
                 localStorage.setItem("findikSepet", JSON.stringify(sepet));
                 sepetiEkranaYazdir();
             });
         });
+
+        // - (azalt) butonları
         document.querySelectorAll(".azalt").forEach(btn => {
             btn.addEventListener("click", (e) => {
                 const index = e.target.getAttribute("data-index");
@@ -646,26 +713,42 @@ document.addEventListener("DOMContentLoaded", () => {
                     localStorage.setItem("findikSepet", JSON.stringify(sepet));
                     sepetiEkranaYazdir();
                 }
+                // adet === 1 iken - basılırsa hiçbir şey olmaz (ürün sepette kalır)
             });
         });
     }
 });
 
+// DOMConcentLoaded sonu
+
+
 // ==========================================================================
 // B. DİL DEĞİŞTİRME BUTON TETİKLEYİCİSİ
 // ==========================================================================
+// Bu fonksiyon DOMContentLoaded dışında çünkü HTML butonlarına bağlı,
+// sayfa dışından da çağrılabilmesi için global scope'ta.
+
+// dil değiştirme fonk.
 function setLanguage(lang) {
+    // seçilen dili localStorage'a kaydet (tarayıcı kapansa bile hatırlanır)
     localStorage.setItem("preferredLanguage", lang);
+
+    // sayfayı yenile: Yenileme sonrası getActiveLang() yeni dili okur
+    // ve tüm metinler yeni dile göre yeniden yüklenir
     window.location.reload(); 
 }
 
+// sayfa yüklenince dil butonlarına listener ekle
 document.addEventListener("DOMContentLoaded", () => {
     const activeLang = getActiveLang();
-    
+
+    // TR ve EN butonları bu sayfada var mı? (her sayfada olmayabilir)
     if (document.getElementById("btn-tr") && document.getElementById("btn-en")) {
+        // TR butonuna tıklanınca setLanguage("tr") çağır
         document.getElementById("btn-tr").addEventListener("click", () => setLanguage("tr"));
         document.getElementById("btn-en").addEventListener("click", () => setLanguage("en"));
         
+        // Aktif dil hangisiyse o buton koyu (siyah), diğeri soluk (gri) görünür.
         if(activeLang === 'tr') {
             document.getElementById("btn-tr").style.color = "#000";
             document.getElementById("btn-en").style.color = "#777";
